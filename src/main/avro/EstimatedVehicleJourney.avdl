@@ -1,0 +1,148 @@
+
+@namespace("org.entur.avro.realtime.siri.model")
+protocol EstimatedVehicleJourney {
+
+	import idl "Common.avdl";
+
+	record EstimatedVehicleJourneyRecord {
+		string? recordedAtTime;
+		string? lineRef;
+		string? directionRef;
+		string? datedVehicleJourneyRef;
+		FramedVehicleJourneyRefRecord? framedVehicleJourneyRef;
+		string? estimatedVehicleJourneyCode;
+		boolean? extraJourney;
+		boolean? cancellation;
+		string? journeyPatternRef;
+		array<VehicleModeEnum> vehicleModes;
+		string? routeRef;
+		array<TranslatedStringRecord> publishedLineNames = [];
+		array<TranslatedStringRecord> destinationDisplayAtOrigins = [];
+		string? groupOfLinesRef;
+		string? externalLineRef;
+		array<TranslatedStringRecord> originNames = [];
+		string? originRef;
+		array<TranslatedStringRecord> destinationNames = [];
+		string? destinationRef;
+		string? operatorRef;
+		string? originAimedDepartureTime;
+		string? destinationAimedArrivalTime;
+		array<string> vehicleFeatureRefs = [];
+		string? productCategoryRef;
+		array<string> serviceFeatureRefs = [];
+		boolean? monitored;
+		boolean? predictionInaccurate;
+		string? dataSource;
+		OccupancyEnum? occupancy;
+		string? blockRef;
+		string? vehicleJourneyRef;
+		array<FramedVehicleJourneyRefRecord> additionalVehicleJourneyRef = [];
+		string? vehicleRef;
+		array<RecordedCallRecord> recordedCalls = [];
+		array<EstimatedCallRecord> estimatedCalls = [];
+		boolean? isCompleteStopSequence;
+	}
+
+	record SimpleContactRecord {
+		string? phoneNumber;
+		string? url;
+	}
+
+	record RecordedCallRecord {
+		string? stopPointRef;
+		int? order;
+		array<TranslatedStringRecord> stopPointNames = [];
+		boolean? extraCall;
+		boolean? cancellation;
+		boolean? predictionInaccurate;
+		OccupancyEnum? occupancy;
+		boolean? requestStop;
+		array<TranslatedStringRecord> destinationDisplays = [];
+
+		string? aimedArrivalTime;
+		string? expectedArrivalTime;
+		string? actualArrivalTime;
+		string? arrivalPlatformName;
+		CallStatusEnum? arrivalStatus;
+		AlightingActivityEnum? arrivalBoardingActivity;
+		array<StopAssignmentRecord> arrivalStopAssignments = [];
+
+		string? aimedDepartureTime;
+		string? expectedDepartureTime;
+		string? actualDepartureTime;
+		string? departurePlatformName;
+		CallStatusEnum? departureStatus;
+		BoardingActivityEnum? departureBoardingActivity;
+		array<StopAssignmentRecord> departureStopAssignments = [];
+		array<VehicleOccupancyRecord> recordedDepartureOccupancies = [];
+		array<PassengerCapacityRecord> recordedDepartureCapacities = [];
+		//map<string> extensions;
+	}
+
+	record EstimatedCallRecord {
+		string? stopPointRef;
+		int? order;
+		array<TranslatedStringRecord> stopPointNames = [];
+		boolean? extraCall;
+		boolean? cancellation;
+		boolean? predictionInaccurate;
+		OccupancyEnum? occupancy;
+		boolean? requestStop;
+		array<TranslatedStringRecord> destinationDisplays = [];
+		string? aimedArrivalTime;
+		string? expectedArrivalTime;
+		string? arrivalPlatformName;
+		CallStatusEnum? arrivalStatus;
+		AlightingActivityEnum? arrivalBoardingActivity;
+		array<StopAssignmentRecord> arrivalStopAssignments = [];
+
+		string? aimedDepartureTime;
+		string? expectedDepartureTime;
+		string? departurePlatformName;
+		CallStatusEnum? departureStatus;
+		BoardingActivityEnum? departureBoardingActivity;
+		array<StopAssignmentRecord> departureStopAssignments = [];
+		array<VehicleOccupancyRecord> expectedDepartureOccupancies = [];
+		array<PassengerCapacityRecord> expectedDepartureCapacities = [];
+		//map<string> extensions = [];
+	}
+
+	record PassengerCapacityRecord {
+		string? compoundTrainRef;
+		string? trainRef;
+		string? trainComponentRef;
+		string? entranceToVehicleRef;
+		string? passengerCategory;
+		int? totalCapacity;
+		int? seatingCapacity;
+		int? standingCapacity;
+		int? pushchairCapacity;
+		int? wheelchairPlaceCapacity;
+		int? pramPlaceCapacity;
+		int? bicycleRackCapacity;
+	}
+
+	record VehicleOccupancyRecord {
+		string? compoundTrainRef;
+		string? trainRef;
+		string? trainComponentRef;
+		string? entranceToVehicleRef;
+		string? passengerCategory;
+		OccupancyEnum? occupancyLevel;
+		double? occupancyPercentage;
+
+		int? alightingCount;
+		int? boardingCount;
+		int? onboardCount;
+		int? pushchairsOnboardCount;
+		int? wheelchairsOnboardCount;
+		int? pramsOnboardCount;
+		int? bicycleOnboardCount;
+		int? totalNumberOfReservedSeats;
+	}
+
+	record StopAssignmentRecord {
+		string? aimedQuayRef;
+		string? expectedQuayRef;
+	}
+}

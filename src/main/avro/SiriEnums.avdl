@@ -1,0 +1,69 @@
+
+@namespace("org.entur.avro.realtime.siri.model")
+protocol SiriEnums {
+
+	import idl "SiriSXEnums.avdl";
+
+	enum BoardingActivityEnum {
+		BOARDING,
+		NO_BOARDING,
+		PASS_THRU
+	}
+	enum AlightingActivityEnum {
+		ALIGHTING,
+		NO_ALIGHTING,
+		PASS_THRU
+	}
+
+	enum CallStatusEnum {
+		ON_TIME,
+		EARLY,
+		DELAYED,
+		CANCELLED,
+		ARRIVED,
+		DEPARTED,
+		MISSED,
+		NO_REPORT,
+		NOT_EXPECTED
+	}
+
+	enum OccupancyEnum {
+		UNKNOWN,
+		EMPTY,
+		MANY_SEATS_AVAILABLE,
+		FEW_SEATS_AVAILABLE,
+		STANDING_ROOM_ONLY,
+		CRUSHED_STANDING_ROOM_ONLY,
+		FULL,
+		NOT_ACCEPTING_PASSENGERS,
+		UNDEFINED,
+		SEATS_AVAILABLE,
+		STANDING_AVAILABLE
+	}
+
+	enum VehicleModeEnum {
+		AIR,
+		BUS,
+		COACH,
+		FERRY,
+		METRO,
+		RAIL,
+		TRAM,
+		UNDERGROUND
+	}
+	enum VehicleStatusEnum {
+		EXPECTED,
+		NOT_EXPECTED,
+		CANCELLED,
+		ASSIGNED,
+		SIGNED_ON,
+		AT_ORIGIN,
+		IN_PROGRESS,
+		ABORTED,
+		OFF_ROUTE,
+		COMPLETED,
+		ASSUMED_COMPLETED,
+		NOT_RUN
+	}
+
+}

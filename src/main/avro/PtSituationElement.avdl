@@ -1,0 +1,139 @@
+
+@namespace("org.entur.avro.realtime.siri.model")
+protocol PtSituationElement {
+
+	import idl "Common.avdl";
+
+	record PtSituationElementRecord {
+		string? creationTime;
+		string? participantRef;
+		string? situationNumber;
+		int? version;
+		SourceRecord? source;
+		string? versionedAtTime;
+		WorkflowStatusEnum? progress;
+		array<ValidityPeriodRecord> validityPeriods = [];
+		string? undefinedReason;
+		SeverityEnum? severity;
+		int? priority;
+		ReportTypeEnum reportType;
+		array<string> keywords = [];
+		boolean? planned;
+		array<TranslatedStringRecord> summaries = [];
+		array<TranslatedStringRecord> descriptions = [];
+		array<TranslatedStringRecord> details = [];
+		array<TranslatedStringRecord> advices = [];
+		array<InfoLinkRecord> infoLinks = [];
+		AffectsRecord? affects;
+	}
+
+	record AffectsRecord {
+		array<AffectedNetworkRecord> networks = [];
+		array<AffectedStopPlaceRecord> stopPlaces = [];
+		array<AffectedStopPointRecord> stopPoints = [];
+		array<AffectedVehicleJourneyRecord> vehicleJourneys = [];
+	}
+
+	record AffectedNetworkRecord {
+		array<AffectedOperatorRecord> affectedOperators = [];
+		string? networkRef;
+		VehicleModeEnum? vehicleMode;
+		AirSubmodesEnum? airSubmode;
+		BusSubmodesEnum? busSubmode;
+		CoachSubmodesEnum? coachSubmode;
+		MetroSubmodesEnum? metroSubmode;
+		RailSubmodesEnum? railSubmode;
+		TramSubmodesEnum? tramSubmode;
+		WaterSubmodesEnum? waterSubmode;
+		array<AffectedLineRecord> affectedLines = [];
+		string? allLines;
+	}
+
+	record AffectedLineRecord {
+		string? lineRef;
+		array<AffectedRouteRecord> routes = [];
+		array<AffectedSectionRecord> sections = [];
+	}
+
+	record AffectedRouteRecord {
+		string? routeRef;
+		StopPointsRecord? stopPoints;
+		array<AffectedSectionRecord> sections = [];
+	}
+
+	record StopPointsRecord {
+		boolean? affectedOnly;
+		array<AffectedStopPointRecord> stopPoints = [];
+	}
+
+	record AffectedSectionRecord {
+		IndirectSectionRefRecord? indirectSectionRef;
+	}
+
+	record IndirectSectionRefRecord {
+		string? firstQuayRef;
+		string? lastQuayRef;
+	}
+
+	record AffectedOperatorRecord {
+		string? operatorRef;
+		array<TranslatedStringRecord> operatorNames = [];
+	}
+
+	record AffectedStopPointRecord {
+		string? stopPointRef;
+		array<TranslatedStringRecord> stopPointNames = [];
+		array<RoutePointTypeEnum> stopConditions = [];
+	}
+
+	record AffectedStopPlaceRecord {
+		AccessibilityAssessmentRecord accessibilityAssessment;
+		string? stopPlaceRef;
+		TranslatedStringRecord? placeName;
+		AffectedComponentRecord? affectedComponent;
+	}
+
+	record AffectedComponentRecord {
+		string? componentRef;
+		StopPlaceComponentTypeEnum? componentType;
+		AccessibilityFeatureEnum? accessFeatureType;
+	}
+
+
+	record AccessibilityAssessmentRecord {
+		boolean? mobilityImpairedAccess;
+		array<AccessibilityLimitationRecord> limitations = [];
+	}
+
+	record AccessibilityLimitationRecord {
+		AccessibilityEnum? wheelchairAccess;
+		AccessibilityEnum? stepFreeAccess;
+		AccessibilityEnum? escalatorFreeAccess;
+		AccessibilityEnum? liftFreeAccess;
+	}
+
+	record AffectedVehicleJourneyRecord {
+		array<string> vehicleJourneyRefs = [];
+		FramedVehicleJourneyRefRecord? framedVehicleJourneyRef;
+		array<string> datedVehicleJourneyRefs = [];
+		AffectedOperatorRecord? operator;
+		string? lineRef;
+		array<AffectedRouteRecord> routes = [];
+		string? originAimedDepartureTime;
+	}
+
+
+	record InfoLinkRecord {
+		array<TranslatedStringRecord> labels = [];
+		string? uri;
+	}
+
+	record ValidityPeriodRecord {
+		string? startTime;
+		string? endTime;
+	}
+
+	record SourceRecord {
+		SourceTypeEnum? sourceType;
+	}
+}

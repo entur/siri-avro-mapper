@@ -1,0 +1,12 @@
+{
+  "type" : "record",
+  "name" : "SimpleContactRecord",
+  "namespace" : "org.entur.avro.realtime.siri.model",
+  "fields" : [ {
+    "name" : "phoneNumber",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "url",
+    "type" : [ "null", "string" ]
+  } ]
+}

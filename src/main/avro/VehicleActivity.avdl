@@ -1,0 +1,64 @@
+
+@namespace("org.entur.avro.realtime.siri.model")
+protocol VehicleActivity {
+
+	import idl "Common.avdl";
+
+	record VehicleActivityRecord {
+		string? recordedAtTime;
+		string? validUntilTime;
+		ProgressBetweenStopsRecord? progressBetweenStops;
+		MonitoredVehicleJourneyRecord? monitoredVehicleJourney;
+	}
+
+	record ProgressBetweenStopsRecord {
+		double? percentage;
+		double? linkDistance;
+	}
+
+	record MonitoredVehicleJourneyRecord {
+		string? lineRef;
+		string? directionRef;
+		FramedVehicleJourneyRefRecord? framedVehicleJourneyRef;
+		array<VehicleModeEnum> vehicleModes = [];
+		array<TranslatedStringRecord> publishedLineNames = [];
+		string? operatorRef;
+		string? originRef;
+		array<TranslatedStringRecord> originNames = [];
+		string? destinationRef;
+		array<TranslatedStringRecord> destinationNames = [];
+		string? originAimedDepartureTime;
+		string? destinationAimedArrivalTime;
+		boolean? monitored;
+		string? dataSource;
+		LocationRecord? vehicleLocation;
+		string? locationRecordedAtTime;
+		float? bearing;
+		int? velocity;
+		OccupancyEnum? occupancy;
+		string? delay;
+		boolean? inCongestion;
+		VehicleStatusEnum? vehicleStatus;
+		string? vehicleJourneyRef;
+		string? vehicleRef;
+		//array<CallRecord> previousCalls = [];
+		CallRecord? monitoredCall;
+		//array<CallRecord> onwardCalls = [];
+		boolean? isCompleteStopSequence;
+	}
+
+	record LocationRecord {
+		string? srsName;
+		double? longitude;
+		double? latitude;
+	}
+
+	record CallRecord {
+		string? stopPointRef;
+		int? order;
+		array<TranslatedStringRecord> stopPointNames = [];
+		boolean? vehicleAtStop;
+		LocationRecord? vehicleLocationAtStop;
+		array<TranslatedStringRecord> destionationDisplays = [];
+	}
+}
