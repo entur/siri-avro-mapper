@@ -2,12 +2,15 @@ package org.entur.avro.realtime.siri.converter.jaxb2avro;
 
 import org.entur.avro.realtime.siri.model.AccessibilityAssessmentRecord;
 import org.entur.avro.realtime.siri.model.AccessibilityEnum;
+import org.entur.avro.realtime.siri.model.AccessibilityFeatureEnum;
 import org.entur.avro.realtime.siri.model.AccessibilityLimitationRecord;
+import org.entur.avro.realtime.siri.model.AffectedComponentsRecord;
 import org.entur.avro.realtime.siri.model.AffectedLineRecord;
 import org.entur.avro.realtime.siri.model.AffectedNetworkRecord;
 import org.entur.avro.realtime.siri.model.AffectedOperatorRecord;
 import org.entur.avro.realtime.siri.model.AffectedRouteRecord;
 import org.entur.avro.realtime.siri.model.AffectedSectionRecord;
+import org.entur.avro.realtime.siri.model.AffectedStopPlaceComponentRecord;
 import org.entur.avro.realtime.siri.model.AffectedStopPlaceRecord;
 import org.entur.avro.realtime.siri.model.AffectedStopPointRecord;
 import org.entur.avro.realtime.siri.model.AffectedVehicleJourneyRecord;
@@ -18,15 +21,19 @@ import org.entur.avro.realtime.siri.model.PtSituationElementRecord;
 import org.entur.avro.realtime.siri.model.SituationExchangeDeliveryRecord;
 import org.entur.avro.realtime.siri.model.SourceRecord;
 import org.entur.avro.realtime.siri.model.SourceTypeEnum;
+import org.entur.avro.realtime.siri.model.StopPlaceComponentTypeEnum;
 import org.entur.avro.realtime.siri.model.StopPointsRecord;
 import org.entur.avro.realtime.siri.model.ValidityPeriodRecord;
 import uk.org.acbs.siri21.AccessibilityAssessmentStructure;
 import uk.org.acbs.siri21.AccessibilityLimitationStructure;
 import uk.org.acbs.siri21.AccessibilityStructure;
+import uk.org.ifopt.siri21.StopPlaceComponentTypeEnumeration;
+import uk.org.siri.siri21.AccessibilityFeatureEnumeration;
 import uk.org.siri.siri21.AffectedLineStructure;
 import uk.org.siri.siri21.AffectedOperatorStructure;
 import uk.org.siri.siri21.AffectedRouteStructure;
 import uk.org.siri.siri21.AffectedSectionStructure;
+import uk.org.siri.siri21.AffectedStopPlaceComponentStructure;
 import uk.org.siri.siri21.AffectedStopPlaceStructure;
 import uk.org.siri.siri21.AffectedStopPointStructure;
 import uk.org.siri.siri21.AffectedVehicleJourneyStructure;
@@ -172,11 +179,56 @@ public class SituationExchangeDeliveryConverter extends Jaxb2AvroEnumConverter {
                     AffectedStopPlaceRecord.newBuilder()
                             .setAccessibilityAssessment(convert(affectedStopPlace.getAccessibilityAssessment()))
                             .setStopPlaceRef(getValue(affectedStopPlace.getStopPlaceRef()))
+                            .setPlaceNames(getTranslatedValues(affectedStopPlace.getPlaceNames()))
+                            .setAffectedComponent(convert(affectedStopPlace.getAffectedComponents()))
                             .build()
             );
         }
 
         return records;
+    }
+
+    private static AffectedComponentsRecord convert(AffectedStopPlaceStructure.AffectedComponents affectedComponents) {
+        if (affectedComponents == null) {
+            return null;
+        }
+        return AffectedComponentsRecord.newBuilder()
+                .setComponents(convertComponents(affectedComponents.getAffectedComponents()))
+                .build()
+        ;
+    }
+
+    private static List<AffectedStopPlaceComponentRecord> convertComponents(List<AffectedStopPlaceComponentStructure> components) {
+        if (components == null) {
+            return Collections.emptyList();
+        }
+        List<AffectedStopPlaceComponentRecord> records = new ArrayList<>();
+        for (AffectedStopPlaceComponentStructure component : components) {
+            records.add(convert(component));
+        }
+        return records;
+    }
+
+    private static AffectedStopPlaceComponentRecord convert(AffectedStopPlaceComponentStructure component) {
+        return AffectedStopPlaceComponentRecord.newBuilder()
+                .setComponentRef(getValue(component.getComponentRef()))
+                .setAccessFeatureType(convert(component.getAccessFeatureType()))
+                .setComponentType(convert(component.getComponentType()))
+                .build();
+    }
+
+    private static StopPlaceComponentTypeEnum convert(StopPlaceComponentTypeEnumeration componentType) {
+        if (componentType == null) {
+            return null;
+        }
+        return StopPlaceComponentTypeEnum.valueOf(componentType.name());
+    }
+
+    private static AccessibilityFeatureEnum convert(AccessibilityFeatureEnumeration accessFeatureType) {
+        if (accessFeatureType == null) {
+            return null;
+        }
+        return AccessibilityFeatureEnum.valueOf(accessFeatureType.name());
     }
 
     private static AccessibilityAssessmentRecord convert(AccessibilityAssessmentStructure accessibilityAssessment) {

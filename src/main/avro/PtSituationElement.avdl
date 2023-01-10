@@ -87,13 +87,16 @@ protocol PtSituationElement {
 	}
 
 	record AffectedStopPlaceRecord {
-		AccessibilityAssessmentRecord accessibilityAssessment;
+		AccessibilityAssessmentRecord? accessibilityAssessment;
 		string? stopPlaceRef;
-		TranslatedStringRecord? placeName;
-		AffectedComponentRecord? affectedComponent;
+		array<TranslatedStringRecord> placeNames = [];
+		AffectedComponentsRecord? affectedComponent;
 	}
 
-	record AffectedComponentRecord {
+	record AffectedComponentsRecord {
+		array<AffectedStopPlaceComponentRecord> components = [];
+	}
+	record AffectedStopPlaceComponentRecord {
 		string? componentRef;
 		StopPlaceComponentTypeEnum? componentType;
 		AccessibilityFeatureEnum? accessFeatureType;
