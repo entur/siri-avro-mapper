@@ -8,13 +8,45 @@
     <artifactId>siri-avro-mapper</artifactId>
     <version>0.1-SNAPSHOT</version>
 
+    <name>siri-avro-model</name>
+    <description>Avro-objects and mapping from/to objects from the public SIRI XSDs</description>
+    <url>https://github.com/entur/siri-avro-model</url>
+    <licenses>
+        <license>
+            <name>EUPL-1.2 with modifications</name>
+            <url>https://joinup.ec.europa.eu/software/page/eupl</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Lasse Tyrihjell</name>
+            <email>lasse.tyrihjell@entur.org</email>
+            <organization>Entur</organization>
+            <organizationUrl>http://www.entur.org</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:ssh://git@github.com/entur/siri-avro-model.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/entur/siri-avro-model.git</developerConnection>
+        <url>https://github.com/entur/siri-avro-model/tree/master</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <organization>
+        <name>Entur AS</name>
+        <url>http://www.entur.org/</url>
+    </organization>
+
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <avro.version>1.11.1</avro.version>
     </properties>
-    <dependencies>
 
+    <dependencies>
         <!-- https://mvnrepository.com/artifact/org.apache.avro/avro -->
         <dependency>
             <groupId>org.apache.avro</groupId>
