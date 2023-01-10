@@ -36,7 +36,7 @@
             <artifactId>siri-java-model</artifactId>
 <!--            <version>1.21</version>-->
             <!-- Holding back version for now to be in sync with anshar/jaxb -->
-            <version>0.16</version>
+            <version>0.15</version>
         </dependency>
 
 
