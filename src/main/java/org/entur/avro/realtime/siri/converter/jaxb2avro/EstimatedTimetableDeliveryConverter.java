@@ -247,6 +247,7 @@ public class EstimatedTimetableDeliveryConverter extends Jaxb2AvroEnumConverter 
             for (PassengerCapacityStructure capacityStructure : passengerCapacities) {
                 records.add(convert(capacityStructure));
             }
+            return records;
         }
         return Collections.emptyList();
     }
@@ -274,6 +275,7 @@ public class EstimatedTimetableDeliveryConverter extends Jaxb2AvroEnumConverter 
             for (VehicleOccupancyStructure occupancy : occupancies) {
                 records.add(convert(occupancy));
             }
+            return records;
         }
         return Collections.emptyList();
     }

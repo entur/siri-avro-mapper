@@ -5,17 +5,11 @@ import org.entur.siri21.util.SiriXml;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
-import uk.org.siri.siri21.EstimatedTimetableDeliveryStructure;
-import uk.org.siri.siri21.EstimatedVersionFrameStructure;
 import uk.org.siri.siri21.Siri;
-import uk.org.siri.siri21.SituationExchangeDeliveryStructure;
-import uk.org.siri.siri21.VehicleActivityStructure;
-import uk.org.siri.siri21.VehicleMonitoringDeliveryStructure;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
-import java.io.RandomAccessFile;
 
 import static org.entur.avro.realtime.siri.converter.Converter.avro2Jaxb;
 import static org.entur.avro.realtime.siri.converter.Converter.jaxb2Avro;

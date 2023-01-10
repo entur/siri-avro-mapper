@@ -448,7 +448,7 @@ public class EstimatedTimetableDeliveryConverter extends Avro2JaxbEnumConverter 
 
     private static VehicleOccupancyStructure convert(VehicleOccupancyRecord occupancy) {
         VehicleOccupancyStructure mapped = new VehicleOccupancyStructure();
-        mapped.setCompoundTrainRef(setValue(CompoundTrainRef.class, occupancy.getCompoundTrainRef()));;
+        mapped.setCompoundTrainRef(setValue(CompoundTrainRef.class, occupancy.getCompoundTrainRef()));
         mapped.setTrainRef(setValue(TrainRef.class, occupancy.getTrainRef()));
         mapped.setTrainComponentRef(setValue(TrainComponentRef.class, occupancy.getTrainComponentRef()));
         mapped.setEntranceToVehicleRef(setValue(EntranceToVehicleRef.class, occupancy.getEntranceToVehicleRef()));

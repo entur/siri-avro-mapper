@@ -24,9 +24,9 @@ import java.util.stream.Collectors;
 public class CommonConverter {
 
 
-    static Logger LOG = LoggerFactory.getLogger(CommonConverter.class);
+    static final Logger LOG = LoggerFactory.getLogger(CommonConverter.class);
 
-    static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
+    static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
 
     /**
      * Uses reflection to call "getValue()" to fetch actual values from provided object
@@ -212,7 +212,7 @@ public class CommonConverter {
     }
 
     protected static Collection<String> convertStringList(List<CharSequence> strings) {
-        return strings.stream().map(s -> s.toString()).collect(Collectors.toList());
+        return strings.stream().map(CharSequence::toString).collect(Collectors.toList());
     }
 
     protected static Integer convert(BigInteger bigInteger) {
@@ -278,8 +278,7 @@ public class CommonConverter {
         if (framedVehicleJourneyRef == null) {
             return null;
         }
-        if (framedVehicleJourneyRef != null &&
-                framedVehicleJourneyRef.getDataFrameRef() != null &&
+        if (framedVehicleJourneyRef.getDataFrameRef() != null &&
                 framedVehicleJourneyRef.getDatedVehicleJourneyRef() != null) {
             return FramedVehicleJourneyRefRecord.newBuilder()
                     .setDataFrameRef(getValue(framedVehicleJourneyRef.getDataFrameRef()))

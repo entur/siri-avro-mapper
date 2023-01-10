@@ -315,7 +315,7 @@ public class SituationExchangeDeliveryConverter extends Avro2JaxbEnumConverter {
         for (AffectedStopPlaceComponentRecord component : affectedComponent.getComponents()) {
             result.getAffectedComponents().add(convert(component));
         }
-        return null;
+        return result;
     }
 
     private static AffectedStopPlaceComponentStructure convert(AffectedStopPlaceComponentRecord component) {
@@ -329,7 +329,7 @@ public class SituationExchangeDeliveryConverter extends Avro2JaxbEnumConverter {
         if (component.getAccessFeatureType() != null) {
             componentStructure.setAccessFeatureType(convert(component.getAccessFeatureType()));
         }
-        return null;
+        return componentStructure;
     }
 
     private static AccessibilityFeatureEnumeration convert(AccessibilityFeatureEnum accessFeatureType) {
