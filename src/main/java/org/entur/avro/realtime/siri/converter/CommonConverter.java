@@ -30,7 +30,7 @@ public class CommonConverter {
 
     static final Logger LOG = LoggerFactory.getLogger(CommonConverter.class);
 
-    static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
+    static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSz");
     private static final DatatypeFactory datatypeFactory;
     protected static ZoneId forceTimeZone;
 

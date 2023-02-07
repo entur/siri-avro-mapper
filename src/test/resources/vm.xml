@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<Siri xmlns="http://www.siri.org.uk/siri" xmlns:ns2="http://www.ifopt.org.uk/acsb" xmlns:ns3="http://www.ifopt.org.uk/ifopt" xmlns:ns4="http://datex2.eu/schema/2_0RC1/2_0" xmlns:ns5="http://www.opengis.net/gml/3.2" version="2.1">
+<Siri version="2.1" xmlns="http://www.siri.org.uk/siri" xmlns:ns2="http://www.ifopt.org.uk/acsb" xmlns:ns3="http://www.ifopt.org.uk/ifopt" xmlns:ns4="http://datex2.eu/schema/2_0RC1/2_0" xmlns:ns5="http://www.opengis.net/gml/3.2">
   <ServiceDelivery>
     <ResponseTimestamp>2016-06-28T10:32:58.343+02:00</ResponseTimestamp>
     <VehicleMonitoringDelivery version="2.1">
       <ResponseTimestamp>2016-06-28T10:32:58.343+02:00</ResponseTimestamp>
       <VehicleActivity>
         <RecordedAtTime>2016-06-28T09:38:22+02:00</RecordedAtTime>
-        <ValidUntilTime>2016-06-28T10:38:55.9638893+02:00</ValidUntilTime>
+        <ValidUntilTime>2016-06-28T10:38:55.963889+02:00</ValidUntilTime>
         <ProgressBetweenStops>
           <LinkDistance>12345.67</LinkDistance>
           <Percentage>2.1234</Percentage>
@@ -14,7 +14,6 @@
         <MonitoredVehicleJourney>
           <LineRef>1234</LineRef>
           <DirectionRef>1</DirectionRef>
-          <DatedVehicleJourneyRef>ENT:DatedServiceJourney:1234</DatedVehicleJourneyRef>
           <VehicleMode>bus</VehicleMode>
           <PublishedLineName>1</PublishedLineName>
           <OriginRef>ENT:StopPlace:1</OriginRef>
@@ -39,7 +38,7 @@
       </VehicleActivity>
       <VehicleActivity>
         <RecordedAtTime>2016-06-28T09:38:22+02:00</RecordedAtTime>
-        <ValidUntilTime>2016-06-28T10:38:55.9638893+02:00</ValidUntilTime>
+        <ValidUntilTime>2016-06-28T10:38:55.963889+02:00</ValidUntilTime>
         <ProgressBetweenStops>
           <LinkDistance>12345.67</LinkDistance>
           <Percentage>2.1234</Percentage>
@@ -64,9 +63,9 @@
             <Longitude>5.743535</Longitude>
             <Latitude>58.98248</Latitude>
           </VehicleLocation>
+          <Delay>PT18S</Delay>
           <VehicleStatus>inProgress</VehicleStatus>
           <VehicleJourneyRef>ENT:DatedServiceJourney:1234</VehicleJourneyRef>
-          <Delay>PT18S</Delay>
           <VehicleRef>1234</VehicleRef>
           <MonitoredCall>
             <StopPointRef>ENT:Quay:123</StopPointRef>
