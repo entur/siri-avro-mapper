@@ -51,7 +51,7 @@ import java.util.List;
 
 public class SituationExchangeDeliveryConverter extends Jaxb2AvroEnumConverter {
     public static List<SituationExchangeDeliveryRecord> convert(List<SituationExchangeDeliveryStructure> deliveries) {
-        if (deliveries == null || deliveries.isEmpty()) {
+        if (isNullOrEmpty(deliveries)) {
             return Collections.emptyList();
         }
 
@@ -83,7 +83,7 @@ public class SituationExchangeDeliveryConverter extends Jaxb2AvroEnumConverter {
         return records;
     }
 
-    private static PtSituationElementRecord convert(PtSituationElement element) {
+    static PtSituationElementRecord convert(PtSituationElement element) {
         if (element == null) {
             return null;
         }

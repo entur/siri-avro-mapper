@@ -5,6 +5,7 @@ import org.entur.siri21.util.SiriXml;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
+import uk.org.siri.siri21.EstimatedVehicleJourney;
 import uk.org.siri.siri21.Siri;
 
 import javax.xml.bind.JAXBException;
@@ -15,7 +16,7 @@ import static org.entur.avro.realtime.siri.converter.Converter.avro2Jaxb;
 import static org.entur.avro.realtime.siri.converter.Converter.jaxb2Avro;
 import static org.junit.Assert.assertEquals;
 
-public class TestSiriETConverter extends Helper{
+public class TestSiriETConverter extends Helper {
 
     private static String xml;
 

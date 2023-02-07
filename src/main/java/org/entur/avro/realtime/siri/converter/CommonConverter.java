@@ -8,11 +8,15 @@ import uk.org.siri.siri21.DataFrameRefStructure;
 import uk.org.siri.siri21.FramedVehicleJourneyRefStructure;
 import uk.org.siri.siri21.SituationVersion;
 
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.Duration;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -27,6 +31,16 @@ public class CommonConverter {
     static final Logger LOG = LoggerFactory.getLogger(CommonConverter.class);
 
     static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
+    private static final DatatypeFactory datatypeFactory;
+    protected static ZoneId forceTimeZone;
+
+    static {
+        try {
+            datatypeFactory = DatatypeFactory.newInstance();
+        } catch (DatatypeConfigurationException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     /**
      * Uses reflection to call "getValue()" to fetch actual values from provided object
@@ -43,6 +57,10 @@ public class CommonConverter {
             LOG.warn("Unable to convert - returning null: ", e);
             return null;
         }
+    }
+
+    protected static boolean isNullOrEmpty(List items) {
+        return items == null || items.isEmpty();
     }
 
     /**
@@ -180,7 +198,7 @@ public class CommonConverter {
         if (responseTimestamp == null) {
             return null;
         }
-        return dateTimeFormatter.format(responseTimestamp);
+        return dateTimeFormatter.format(responseTimestamp.withZoneSameInstant(ZoneOffset.UTC));
     }
 
 
@@ -188,14 +206,17 @@ public class CommonConverter {
         if (responseTimestamp == null) {
             return null;
         }
+        if (forceTimeZone != null) {
+            return ZonedDateTime.parse(responseTimestamp, dateTimeFormatter).withZoneSameInstant(forceTimeZone);
+        }
         return ZonedDateTime.parse(responseTimestamp, dateTimeFormatter);
     }
 
     protected static List<TranslatedStringRecord> convertNames(List names) {
-        if (names != null && !names.isEmpty()) {
-            return getTranslatedValues(names);
+        if (isNullOrEmpty(names)) {
+            return Collections.emptyList();
         }
-        return Collections.emptyList();
+        return getTranslatedValues(names);
     }
 
     protected static SituationVersion convertVersion(Integer version) {
@@ -286,5 +307,9 @@ public class CommonConverter {
                     .build();
         }
         return null;
+    }
+
+    protected static javax.xml.datatype.Duration convertDuration(CharSequence duration) {
+        return datatypeFactory.newDuration((String) duration);
     }
 }

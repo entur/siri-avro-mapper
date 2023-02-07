@@ -37,7 +37,7 @@ import java.util.Map;
 public class EstimatedTimetableDeliveryConverter extends Jaxb2AvroEnumConverter {
 
     static List<EstimatedTimetableDeliveryRecord> convert(List<EstimatedTimetableDeliveryStructure> estimatedTimetableDeliveries) {
-        if (estimatedTimetableDeliveries == null || estimatedTimetableDeliveries.isEmpty()) {
+        if (isNullOrEmpty(estimatedTimetableDeliveries)) {
             return null;
         }
 
@@ -124,7 +124,7 @@ public class EstimatedTimetableDeliveryConverter extends Jaxb2AvroEnumConverter 
     }
 
     private static List<FramedVehicleJourneyRefRecord> convertFramedVehicleJourneys(List<FramedVehicleJourneyRefStructure> refs) {
-        if (refs == null || refs.isEmpty()) {
+        if (isNullOrEmpty(refs)) {
             return Collections.emptyList();
         }
         List<FramedVehicleJourneyRefRecord> records = new ArrayList<>();
@@ -138,8 +138,7 @@ public class EstimatedTimetableDeliveryConverter extends Jaxb2AvroEnumConverter 
     private static List<EstimatedCallRecord> convert(EstimatedVehicleJourney.EstimatedCalls estimatedCalls) {
         List<EstimatedCallRecord> calls = new ArrayList<>();
         if (estimatedCalls != null &&
-                estimatedCalls.getEstimatedCalls() != null &&
-                !estimatedCalls.getEstimatedCalls().isEmpty()) {
+                !isNullOrEmpty(estimatedCalls.getEstimatedCalls())) {
             for (EstimatedCall call : estimatedCalls.getEstimatedCalls()) {
                 calls.add(convert(call));
             }
@@ -150,8 +149,7 @@ public class EstimatedTimetableDeliveryConverter extends Jaxb2AvroEnumConverter 
     private static List<RecordedCallRecord> convert(EstimatedVehicleJourney.RecordedCalls recordedCalls) {
         List<RecordedCallRecord> calls = new ArrayList<>();
         if (recordedCalls != null &&
-                recordedCalls.getRecordedCalls() != null &&
-                !recordedCalls.getRecordedCalls().isEmpty()) {
+                !isNullOrEmpty(recordedCalls.getRecordedCalls())) {
             for (RecordedCall call : recordedCalls.getRecordedCalls()) {
                 calls.add(convert(call));
             }
@@ -242,7 +240,7 @@ public class EstimatedTimetableDeliveryConverter extends Jaxb2AvroEnumConverter 
     }
 
     private static List<PassengerCapacityRecord> convertCapacities(List<PassengerCapacityStructure> passengerCapacities) {
-        if (passengerCapacities != null && !passengerCapacities.isEmpty()) {
+        if (!isNullOrEmpty(passengerCapacities)) {
             List<PassengerCapacityRecord> records = new ArrayList<>();
             for (PassengerCapacityStructure capacityStructure : passengerCapacities) {
                 records.add(convert(capacityStructure));
@@ -270,7 +268,7 @@ public class EstimatedTimetableDeliveryConverter extends Jaxb2AvroEnumConverter 
     }
 
     private static List<VehicleOccupancyRecord> convertOccupancies(List<VehicleOccupancyStructure> occupancies) {
-        if (occupancies != null && !occupancies.isEmpty()) {
+        if (!isNullOrEmpty(occupancies)) {
             List<VehicleOccupancyRecord> records = new ArrayList<>();
             for (VehicleOccupancyStructure occupancy : occupancies) {
                 records.add(convert(occupancy));
@@ -315,7 +313,7 @@ public class EstimatedTimetableDeliveryConverter extends Jaxb2AvroEnumConverter 
     }
 
     private static List<StopAssignmentRecord> convertStopAssignments(List<StopAssignmentStructure> stopAssignments) {
-        if (stopAssignments != null && !stopAssignments.isEmpty()) {
+        if (!isNullOrEmpty(stopAssignments)) {
             List<StopAssignmentRecord> records = new ArrayList<>();
             for (StopAssignmentStructure stopAssignment : stopAssignments) {
                 records.add(StopAssignmentRecord.newBuilder()

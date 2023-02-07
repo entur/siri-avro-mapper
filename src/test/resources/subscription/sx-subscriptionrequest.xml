@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Siri version="2.1" xmlns="http://www.siri.org.uk/siri" xmlns:ns2="http://www.ifopt.org.uk/acsb" xmlns:ns3="http://www.ifopt.org.uk/ifopt" xmlns:ns4="http://datex2.eu/schema/2_0RC1/2_0">
+    <SubscriptionRequest>
+        <RequestTimestamp>2018-09-04T12:11:30.913+02:00</RequestTimestamp>
+        <Address>http://endpoint.address.to/receive/data</Address>
+        <RequestorRef>f04aa7d0-09b3-4027-ba47-1dbee4029362</RequestorRef>
+        <MessageIdentifier>d8384e6a-bdf3-4bff-a9fd-da61665c7282</MessageIdentifier>
+        <SubscriptionContext>
+            <HeartbeatInterval>PT1M</HeartbeatInterval>
+        </SubscriptionContext>
+        <SituationExchangeSubscriptionRequest>
+            <SubscriberRef>ENTUR_DEV</SubscriberRef>
+            <SubscriptionIdentifier>066f884b-51a4-457e-b7bd-c6246c3ed5c2</SubscriptionIdentifier>
+            <InitialTerminationTime>2018-09-04T13:11:42.868+02:00</InitialTerminationTime>
+            <SituationExchangeRequest version="2.1">
+                <RequestTimestamp>2018-09-04T12:11:42.868+02:00</RequestTimestamp>
+            </SituationExchangeRequest>
+        </SituationExchangeSubscriptionRequest>
+    </SubscriptionRequest>
+</Siri>

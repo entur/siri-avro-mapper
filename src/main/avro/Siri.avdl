@@ -4,15 +4,31 @@ protocol Siri {
     import idl "EstimatedVehicleJourney.avdl";
     import idl "PtSituationElement.avdl";
     import idl "VehicleActivity.avdl";
+    import idl "Subscription.avdl";
 
     record SiriRecord {
         string version;
-        ServiceDeliveryRecord serviceDelivery;
+        ServiceDeliveryRecord? serviceDelivery;
+        ServiceRequestRecord? serviceRequest;
+        SubscriptionRequestRecord? subscriptionRequest;
+        SubscriptionResponseRecord? subscriptionResponse;
+        TerminateSubscriptionRequestRecord? terminateSubscriptionRequest;
+        TerminateSubscriptionResponseRecord? terminateSubscriptionResponse;
+        HeartbeatNotificationRecord? heartbeatNotification;
+    }
+
+    record ServiceRequestRecord {
+        string? requestTimestamp;
+        string? requestorRef;
+        array<VehicleMonitoringRequestRecord> vehicleMonitoringRequests = [];
+        array<EstimatedTimetableRequestRecord> estimatedTimetableRequests = [];
+        array<SituationExchangeRequestRecord> situationExchangeRequests = [];
     }
 
     record ServiceDeliveryRecord {
-        string? ResponseTimestamp;
-        string? ProducerRef;
+        string? responseTimestamp;
+        string? producerRef;
+        string? requestMessageRef;
         boolean? moreData;
         array<EstimatedTimetableDeliveryRecord> estimatedTimetableDeliveries = [];
         array<SituationExchangeDeliveryRecord> situationExchangeDeliveries = [];

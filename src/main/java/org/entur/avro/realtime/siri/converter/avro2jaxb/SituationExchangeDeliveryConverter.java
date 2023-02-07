@@ -116,7 +116,7 @@ public class SituationExchangeDeliveryConverter extends Avro2JaxbEnumConverter {
         return result;
     }
 
-    private static PtSituationElement convert(PtSituationElementRecord situation) {
+    static PtSituationElement convert(PtSituationElementRecord situation) {
         if (situation == null) {
             return null;
         }
@@ -142,7 +142,7 @@ public class SituationExchangeDeliveryConverter extends Avro2JaxbEnumConverter {
         if (situation.getVersionedAtTime() != null) {
             element.setVersionedAtTime(convertDate(situation.getVersionedAtTime()));
         }
-        if (situation.getValidityPeriods() != null && !situation.getValidityPeriods().isEmpty()) {
+        if (!isNullOrEmpty(situation.getValidityPeriods())) {
             element.getValidityPeriods().addAll(
                     convertValidityPeriods(situation.getValidityPeriods())
             );
@@ -166,19 +166,19 @@ public class SituationExchangeDeliveryConverter extends Avro2JaxbEnumConverter {
         if (situation.getPlanned() != null) {
             element.setPlanned(situation.getPlanned());
         }
-        if (situation.getSummaries() != null && !situation.getSummaries().isEmpty()) {
+        if (!isNullOrEmpty(situation.getSummaries())) {
             element.getSummaries().addAll(setTranslatedValues(DefaultedTextStructure.class, situation.getSummaries()));
         }
-        if (situation.getDescriptions() != null && !situation.getDescriptions().isEmpty()) {
+        if (!isNullOrEmpty(situation.getDescriptions())) {
             element.getDescriptions().addAll(setTranslatedValues(DefaultedTextStructure.class, situation.getDescriptions()));
         }
-        if (situation.getDetails() != null && !situation.getDetails().isEmpty()) {
+        if (!isNullOrEmpty(situation.getDetails())) {
             element.getDetails().addAll(setTranslatedValues(DefaultedTextStructure.class, situation.getDetails()));
         }
-        if (situation.getAdvices() != null && !situation.getAdvices().isEmpty()) {
+        if (!isNullOrEmpty(situation.getAdvices())) {
             element.getAdvices().addAll(setTranslatedValues(DefaultedTextStructure.class, situation.getAdvices()));
         }
-        if (situation.getInfoLinks() != null && !situation.getInfoLinks().isEmpty()) {
+        if (!isNullOrEmpty(situation.getInfoLinks())) {
             element.setInfoLinks(convertInfoLinks(situation.getInfoLinks()));
         }
         if (situation.getAffects() != null) {
@@ -193,16 +193,16 @@ public class SituationExchangeDeliveryConverter extends Avro2JaxbEnumConverter {
             return null;
         }
         AffectsScopeStructure affectsScopeStructure = new AffectsScopeStructure();
-        if (affects.getNetworks() != null && !affects.getNetworks().isEmpty()) {
+        if (!isNullOrEmpty(affects.getNetworks())) {
             affectsScopeStructure.setNetworks(convertNetworks(affects.getNetworks()));
         }
-        if (affects.getStopPlaces() != null && !affects.getStopPlaces().isEmpty()) {
+        if (!isNullOrEmpty(affects.getStopPlaces())) {
             affectsScopeStructure.setStopPlaces(convertStopPlaces(affects.getStopPlaces()));
         }
-        if (affects.getStopPoints() != null && !affects.getStopPoints().isEmpty()) {
+        if (!isNullOrEmpty(affects.getStopPoints())) {
             affectsScopeStructure.setStopPoints(convertStopPoints(affects.getStopPoints()));
         }
-        if (affects.getVehicleJourneys() != null && !affects.getVehicleJourneys().isEmpty()) {
+        if (!isNullOrEmpty(affects.getVehicleJourneys())) {
             affectsScopeStructure.setVehicleJourneys(convertVehicleJourneys(affects.getVehicleJourneys()));
         }
         return affectsScopeStructure;
@@ -221,7 +221,7 @@ public class SituationExchangeDeliveryConverter extends Avro2JaxbEnumConverter {
 
     private static AffectsScopeStructure.Networks.AffectedNetwork convert(AffectedNetworkRecord network) {
         AffectsScopeStructure.Networks.AffectedNetwork result = new AffectsScopeStructure.Networks.AffectedNetwork();
-        if (network.getAffectedOperators() != null && !network.getAffectedOperators().isEmpty()) {
+        if (!isNullOrEmpty(network.getAffectedOperators())) {
             result.getAffectedOperators().addAll(
                     setValues(AffectedOperatorStructure.class, network.getAffectedOperators())
             );
@@ -253,7 +253,7 @@ public class SituationExchangeDeliveryConverter extends Avro2JaxbEnumConverter {
         if (network.getWaterSubmode() != null) {
             result.setWaterSubmode(convert(network.getWaterSubmode()));
         }
-        if (network.getAffectedLines() != null && !network.getAffectedLines().isEmpty()) {
+        if (!isNullOrEmpty(network.getAffectedLines())) {
             result.getAffectedLines()
                     .addAll(
                             convertLines(network.getAffectedLines())
@@ -275,12 +275,12 @@ public class SituationExchangeDeliveryConverter extends Avro2JaxbEnumConverter {
         if (affectedLine.getLineRef() != null) {
             result.setLineRef(setValue(LineRef.class, affectedLine.getLineRef()));
         }
-        if (affectedLine.getRoutes() != null && !affectedLine.getRoutes().isEmpty()) {
+        if (!isNullOrEmpty(affectedLine.getRoutes())) {
             result.setRoutes(new AffectedLineStructure.Routes());
             result.getRoutes().getAffectedRoutes()
                     .addAll(convertRoutes(affectedLine.getRoutes()));
         }
-        if (affectedLine.getSections() != null && !affectedLine.getSections().isEmpty()) {
+        if (!isNullOrEmpty(affectedLine.getSections())) {
             result.setSections(convertLineSections(affectedLine.getSections()));
         }
         return result;
@@ -403,7 +403,7 @@ public class SituationExchangeDeliveryConverter extends Avro2JaxbEnumConverter {
             return null;
         }
         AffectedVehicleJourneyStructure result = new AffectedVehicleJourneyStructure();
-        if (vehicleJourney.getVehicleJourneyRefs() != null && !vehicleJourney.getVehicleJourneyRefs().isEmpty()) {
+        if (!isNullOrEmpty(vehicleJourney.getVehicleJourneyRefs())) {
             result.getVehicleJourneyReves()
                     .addAll(
                             setValues(
@@ -412,7 +412,7 @@ public class SituationExchangeDeliveryConverter extends Avro2JaxbEnumConverter {
                             )
                     );
         }
-        if (vehicleJourney.getDatedVehicleJourneyRefs() != null && !vehicleJourney.getDatedVehicleJourneyRefs().isEmpty()) {
+        if (!isNullOrEmpty(vehicleJourney.getDatedVehicleJourneyRefs())) {
             result.getDatedVehicleJourneyReves()
                     .addAll(
                             setValues(
@@ -433,7 +433,7 @@ public class SituationExchangeDeliveryConverter extends Avro2JaxbEnumConverter {
             result.setLineRef(setValue(LineRef.class, vehicleJourney.getLineRef()));
         }
 
-        if (vehicleJourney.getRoutes() != null && !vehicleJourney.getRoutes().isEmpty()) {
+        if (!isNullOrEmpty(vehicleJourney.getRoutes())) {
             result.getRoutes().addAll(
                     convertRoutes(vehicleJourney.getRoutes())
             );
@@ -458,10 +458,10 @@ public class SituationExchangeDeliveryConverter extends Avro2JaxbEnumConverter {
         if (route.getRouteRef() != null) {
             result.setRouteRef(setValue(RouteRefStructure.class, route.getRouteRef()));
         }
-        if (route.getStopPoints() != null && !route.getStopPoints().getStopPoints().isEmpty()) {
+        if (route.getStopPoints() != null && !isNullOrEmpty(route.getStopPoints().getStopPoints())) {
             result.setStopPoints(convertRouteStopPoints(route.getStopPoints()));
         }
-        if (route.getSections() != null && !route.getSections().isEmpty()) {
+        if (!isNullOrEmpty(route.getSections())) {
             result.setSections(convertRouteSections(route.getSections()));
         }
         return result;
@@ -520,12 +520,12 @@ public class SituationExchangeDeliveryConverter extends Avro2JaxbEnumConverter {
         if (stopPoint.getStopPointRef() != null) {
             result.setStopPointRef(setValue(StopPointRefStructure.class, stopPoint.getStopPointRef()));
         }
-        if (stopPoint.getStopPointNames() != null && !stopPoint.getStopPointNames().isEmpty()) {
+        if (!isNullOrEmpty(stopPoint.getStopPointNames())) {
             result.getStopPointNames().addAll(
                     setTranslatedValues(NaturalLanguageStringStructure.class, stopPoint.getStopPointNames())
             );
         }
-        if (stopPoint.getStopConditions() != null && !stopPoint.getStopConditions().isEmpty()) {
+        if (!isNullOrEmpty(stopPoint.getStopConditions())) {
             result.getStopConditions()
                     .addAll(convertStopConditions(stopPoint.getStopConditions()));
         }
@@ -545,7 +545,7 @@ public class SituationExchangeDeliveryConverter extends Avro2JaxbEnumConverter {
                     )
             );
         }
-        if (operator.getOperatorNames() != null && !operator.getOperatorNames().isEmpty()) {
+        if (!isNullOrEmpty(operator.getOperatorNames())) {
             result.getOperatorNames()
                     .addAll(
                             setTranslatedValues(
@@ -576,7 +576,7 @@ public class SituationExchangeDeliveryConverter extends Avro2JaxbEnumConverter {
         if (infoLink.getUri() != null) {
             result.setUri((String) infoLink.getUri());
         }
-        if (infoLink.getLabels() != null && !infoLink.getLabels().isEmpty()) {
+        if (!isNullOrEmpty(infoLink.getLabels())) {
             result.getLabels().addAll(setTranslatedValues(NaturalLanguageStringStructure.class, infoLink.getLabels()));
         }
         return result;

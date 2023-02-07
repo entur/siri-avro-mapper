@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Siri version="2.1" xmlns="http://www.siri.org.uk/siri" xmlns:ns2="http://www.ifopt.org.uk/acsb" xmlns:ns3="http://www.ifopt.org.uk/ifopt" xmlns:ns4="http://datex2.eu/schema/2_0RC1/2_0">
+    <TerminateSubscriptionRequest>
+        <RequestTimestamp>2019-12-03T13:25:00+01:00</RequestTimestamp>
+        <RequestorRef>ENTUR</RequestorRef>
+        <MessageIdentifier>e8fa60ea-288c-4485-97ba-a8d4f6503810</MessageIdentifier>
+        <SubscriptionRef>d797373f-d53c-4bcc-b687-59e333e9385d</SubscriptionRef>
+    </TerminateSubscriptionRequest>
+</Siri>

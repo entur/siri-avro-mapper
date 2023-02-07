@@ -1,62 +1,53 @@
 package org.entur.avro.realtime.siri.converter.avro2jaxb;
 
 import org.entur.avro.realtime.siri.converter.CommonConverter;
-import org.entur.avro.realtime.siri.model.EstimatedTimetableDeliveryRecord;
-import org.entur.avro.realtime.siri.model.ServiceDeliveryRecord;
+import org.entur.avro.realtime.siri.model.EstimatedVehicleJourneyRecord;
+import org.entur.avro.realtime.siri.model.PtSituationElementRecord;
 import org.entur.avro.realtime.siri.model.SiriRecord;
-import org.entur.avro.realtime.siri.model.SituationExchangeDeliveryRecord;
-import org.entur.avro.realtime.siri.model.VehicleMonitoringDeliveryRecord;
-import uk.org.siri.siri21.RequestorRef;
-import uk.org.siri.siri21.ServiceDelivery;
+import org.entur.avro.realtime.siri.model.VehicleActivityRecord;
+import uk.org.siri.siri21.EstimatedVehicleJourney;
+import uk.org.siri.siri21.PtSituationElement;
 import uk.org.siri.siri21.Siri;
+import uk.org.siri.siri21.VehicleActivityStructure;
 
-import java.util.List;
 public class Avro2JaxbConverter extends CommonConverter {
     public static Siri convert(SiriRecord siriRecord) {
         Siri siri = new Siri();
         if (siriRecord.getServiceDelivery() != null) {
-            siri.setServiceDelivery(convert(siriRecord.getServiceDelivery()));
+            siri.setServiceDelivery(ServiceConverter.convert(siriRecord.getServiceDelivery()));
+        }
+        if (siriRecord.getServiceRequest() != null) {
+            siri.setServiceRequest(ServiceConverter.convert(siriRecord.getServiceRequest()));
+        }
+        if (siriRecord.getHeartbeatNotification() != null) {
+            siri.setHeartbeatNotification(SubscriptionConverter.convert(siriRecord.getHeartbeatNotification()));
+        }
+        if (siriRecord.getSubscriptionRequest() != null) {
+            siri.setSubscriptionRequest(SubscriptionConverter.convert(siriRecord.getSubscriptionRequest()));
+        }
+        if (siriRecord.getSubscriptionResponse() != null) {
+            siri.setSubscriptionResponse(SubscriptionConverter.convert(siriRecord.getSubscriptionResponse()));
+        }
+        if (siriRecord.getTerminateSubscriptionRequest() != null) {
+            siri.setTerminateSubscriptionRequest(SubscriptionConverter.convert(siriRecord.getTerminateSubscriptionRequest()));
+        }
+        if (siriRecord.getTerminateSubscriptionResponse() != null) {
+            siri.setTerminateSubscriptionResponse(SubscriptionConverter.convert(siriRecord.getTerminateSubscriptionResponse()));
         }
         siri.setVersion(siri.getVersion());
 
         return siri;
     }
 
-    static ServiceDelivery convert(ServiceDeliveryRecord serviceDelivery) {
-        ServiceDelivery mapped = new ServiceDelivery();
 
-        if (serviceDelivery.getResponseTimestamp() != null) {
-            mapped.setResponseTimestamp(convertDate(serviceDelivery.getResponseTimestamp()));
-        }
-
-
-        if (serviceDelivery.getProducerRef() != null) {
-            mapped.setProducerRef(
-                    setValue(RequestorRef.class, serviceDelivery.getProducerRef())
-            );
-        }
-
-        if (serviceDelivery.getMoreData() != null) {
-            mapped.setMoreData(serviceDelivery.getMoreData());
-        }
-
-        List<EstimatedTimetableDeliveryRecord> estimatedTimetableDeliveries = serviceDelivery.getEstimatedTimetableDeliveries();
-        if (estimatedTimetableDeliveries != null && !estimatedTimetableDeliveries.isEmpty()) {
-            mapped.getEstimatedTimetableDeliveries().addAll(EstimatedTimetableDeliveryConverter.convert(estimatedTimetableDeliveries));
-        }
-
-        List<SituationExchangeDeliveryRecord> sxDeliveries = serviceDelivery.getSituationExchangeDeliveries();
-        if (sxDeliveries != null && !sxDeliveries.isEmpty()) {
-          mapped.getSituationExchangeDeliveries().addAll(SituationExchangeDeliveryConverter.convert(sxDeliveries));
-        }
-
-
-        List<VehicleMonitoringDeliveryRecord> vmDeliveries = serviceDelivery.getVehicleMonitoringDeliveries();
-        if (vmDeliveries != null && !vmDeliveries.isEmpty()) {
-            mapped.getVehicleMonitoringDeliveries().addAll(VehicleMonitoringDeliveryConverter.convert(vmDeliveries));
-        }
-
-        return mapped;
+    public static EstimatedVehicleJourney convert(EstimatedVehicleJourneyRecord et) {
+        return EstimatedTimetableDeliveryConverter.convert(et);
+    }
+    public static VehicleActivityStructure convert(VehicleActivityRecord vm) {
+        return VehicleMonitoringDeliveryConverter.convert(vm);
+    }
+    public static PtSituationElement convert(PtSituationElementRecord sx) {
+        return SituationExchangeDeliveryConverter.convert(sx);
     }
 
 

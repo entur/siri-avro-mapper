@@ -1,0 +1,109 @@
+@namespace("org.entur.avro.realtime.siri.model")
+protocol Subscription {
+
+	record HeartbeatNotificationRecord {
+		boolean status;
+		string? serviceStartedTime;
+		string? requestTimestamp;
+		string? producerRef;
+	}
+
+	record SubscriptionResponseRecord {
+		string? serviceStartedTime;
+		string? requestMessageRef;
+		string? responderRef;
+		string? responseTimestamp;
+		array<ResponseStatusRecord> responseStatuses = [];
+	}
+
+	record ResponseStatusRecord {
+		string? responseTimestamp;
+		string? requestMessageRef;
+		string? subscriptionRef;
+		boolean? status;
+		string? errorText;
+	}
+
+	record TerminateSubscriptionResponseRecord {
+		string? responseTimestamp;
+		array<TerminationResponseStatusRecord> statuses = [];
+	}
+
+	record TerminationResponseStatusRecord {
+		string? subscriptionRef;
+		string? responseTimestamp;
+		string? subscriberRef;
+		string? requestMessageRef;
+		string? errorText;
+		boolean? status;
+	}
+
+	record TerminateSubscriptionRequestRecord {
+		string? requestTimestamp;
+		array<string> subscriptionRefs = [];
+		string? requestorRef;
+		string? messageIdentifier;
+	}
+
+	record SubscriptionRequestRecord {
+		string? requestorRef;
+		string? messageIdentifier;
+		string? address;
+		string? consumerAddress;
+		string? requestTimestamp;
+		SubscriptionContextRecord? subscriptionContext;
+		array<EstimatedTimetableSubscriptionRecord> estimatedTimetableSubscriptionRequests = [];
+		array<SituationExchangeSubscriptionRecord> situationExchangeSubscriptionRequests = [];
+		array<VehicleMonitoringSubscriptionRecord> vehicleMonitoringSubscriptionRequests = [];
+	}
+
+	record SubscriptionContextRecord {
+		string? heartbeatInterval;
+	}
+
+	record EstimatedTimetableSubscriptionRecord {
+		string? subscriptionIdentifier;
+		string? initialTerminationTime;
+		string? subscriberRef;
+		boolean? incrementalUpdates;
+		string? changeBeforeUpdates;
+		EstimatedTimetableRequestRecord? estimatedTimetableRequest;
+	}
+
+	record SituationExchangeSubscriptionRecord {
+		string? subscriptionIdentifier;
+		string? initialTerminationTime;
+		string? subscriberRef;
+		boolean? incrementalUpdates;
+		SituationExchangeRequestRecord? situationExchangeRequest;
+	}
+
+	record VehicleMonitoringSubscriptionRecord {
+		string? subscriptionIdentifier;
+		string? initialTerminationTime;
+		string? subscriberRef;
+		string? updateInterval;
+		boolean? incrementalUpdates;
+		string? changeBeforeUpdates;
+		VehicleMonitoringRequestRecord? vehicleMonitoringRequest;
+	}
+
+	record EstimatedTimetableRequestRecord {
+		string? version;
+		string? requestTimestamp;
+		string? messageIdentifier;
+		string? previewInterval;
+	}
+	record SituationExchangeRequestRecord {
+		string? version;
+		string? requestTimestamp;
+		string? messageIdentifier;
+		string? previewInterval;
+	}
+
+	record VehicleMonitoringRequestRecord {
+		string? version;
+		string? requestTimestamp;
+		string? messageIdentifier;
+	}
+}

@@ -87,13 +87,13 @@ public class EstimatedTimetableDeliveryConverter extends Avro2JaxbEnumConverter 
 
         List<EstimatedVehicleJourney> estimatedVehicleJourneyRecords = new ArrayList<>();
         for (EstimatedVehicleJourneyRecord estimatedVehicleJourney : estimatedVehicleJourneies) {
-            estimatedVehicleJourneyRecords.add(convertJourney(estimatedVehicleJourney));
+            estimatedVehicleJourneyRecords.add(convert(estimatedVehicleJourney));
         }
 
         return estimatedVehicleJourneyRecords;
     }
 
-    private static EstimatedVehicleJourney convertJourney(EstimatedVehicleJourneyRecord estimatedVehicleJourney) {
+    static EstimatedVehicleJourney convert(EstimatedVehicleJourneyRecord estimatedVehicleJourney) {
         EstimatedVehicleJourney mapped = new EstimatedVehicleJourney();
 
         if (estimatedVehicleJourney.getRecordedAtTime() != null) {
@@ -135,16 +135,14 @@ public class EstimatedTimetableDeliveryConverter extends Avro2JaxbEnumConverter 
                     estimatedVehicleJourney.getRouteRef())
             );
         }
-        if (estimatedVehicleJourney.getPublishedLineNames() != null &&
-                !estimatedVehicleJourney.getPublishedLineNames().isEmpty()) {
+        if (!isNullOrEmpty(estimatedVehicleJourney.getPublishedLineNames())) {
             mapped.getPublishedLineNames()
                     .addAll(setTranslatedValues(
                             NaturalLanguageStringStructure.class,
                             estimatedVehicleJourney.getPublishedLineNames())
                     );
         }
-        if (estimatedVehicleJourney.getDestinationDisplayAtOrigins() != null &&
-                !estimatedVehicleJourney.getDestinationDisplayAtOrigins().isEmpty()) {
+        if (!isNullOrEmpty(estimatedVehicleJourney.getDestinationDisplayAtOrigins())) {
             mapped.getDestinationDisplayAtOrigins()
                     .addAll(setTranslatedValues(
                             NaturalLanguagePlaceNameStructure.class,
@@ -169,8 +167,7 @@ public class EstimatedTimetableDeliveryConverter extends Avro2JaxbEnumConverter 
                     convertVehicleMode(estimatedVehicleJourney.getVehicleModes())
             );
         }
-        if (estimatedVehicleJourney.getOriginNames() != null  &&
-                !estimatedVehicleJourney.getOriginNames().isEmpty()) {
+        if (!isNullOrEmpty(estimatedVehicleJourney.getOriginNames())) {
             mapped.getOriginNames()
                     .addAll(setTranslatedValues(NaturalLanguagePlaceNameStructure.class,
                             estimatedVehicleJourney.getOriginNames())
@@ -180,8 +177,7 @@ public class EstimatedTimetableDeliveryConverter extends Avro2JaxbEnumConverter 
             mapped.setOriginRef(
                     setValue(JourneyPlaceRefStructure.class, estimatedVehicleJourney.getOriginRef()));
         }
-        if (estimatedVehicleJourney.getDestinationNames() != null  &&
-                !estimatedVehicleJourney.getDestinationNames().isEmpty()) {
+        if (!isNullOrEmpty(estimatedVehicleJourney.getDestinationNames())) {
             mapped.getDestinationNames().addAll(
                     setTranslatedValues(
                             NaturalLanguageStringStructure.class,
@@ -248,8 +244,7 @@ public class EstimatedTimetableDeliveryConverter extends Avro2JaxbEnumConverter 
                             estimatedVehicleJourney.getVehicleJourneyRef())
             );
         }
-        if (estimatedVehicleJourney.getAdditionalVehicleJourneyRef() != null &&
-                !estimatedVehicleJourney.getAdditionalVehicleJourneyRef().isEmpty()) {
+        if (!isNullOrEmpty(estimatedVehicleJourney.getAdditionalVehicleJourneyRef())) {
             for (FramedVehicleJourneyRefRecord refRecord : estimatedVehicleJourney.getAdditionalVehicleJourneyRef()) {
                 mapped.getAdditionalVehicleJourneyReves()
                         .add(convert(refRecord));
@@ -259,12 +254,10 @@ public class EstimatedTimetableDeliveryConverter extends Avro2JaxbEnumConverter 
             mapped.setVehicleRef(
                     setValue(VehicleRef.class, estimatedVehicleJourney.getVehicleRef()));
         }
-        if (estimatedVehicleJourney.getRecordedCalls() != null &&
-                !estimatedVehicleJourney.getRecordedCalls().isEmpty()) {
+        if (!isNullOrEmpty(estimatedVehicleJourney.getRecordedCalls())) {
             mapped.setRecordedCalls(convertRecordedCalls(estimatedVehicleJourney.getRecordedCalls()));
         }
-        if (estimatedVehicleJourney.getEstimatedCalls() != null &&
-                !estimatedVehicleJourney.getEstimatedCalls().isEmpty()) {
+        if (!isNullOrEmpty(estimatedVehicleJourney.getEstimatedCalls())) {
             mapped.setEstimatedCalls(convertEstimatedCalls(estimatedVehicleJourney.getEstimatedCalls()));
         }
         if (estimatedVehicleJourney.getIsCompleteStopSequence() != null) {
@@ -282,7 +275,7 @@ public class EstimatedTimetableDeliveryConverter extends Avro2JaxbEnumConverter 
             }
         }
 
-        if (recordedCallList.isEmpty()) {
+        if (isNullOrEmpty(recordedCallList)) {
             return null;
         }
         EstimatedVehicleJourney.RecordedCalls recordedCalls = new EstimatedVehicleJourney.RecordedCalls();
@@ -292,7 +285,7 @@ public class EstimatedTimetableDeliveryConverter extends Avro2JaxbEnumConverter 
 
     private static EstimatedVehicleJourney.EstimatedCalls convertEstimatedCalls(List<EstimatedCallRecord> calls) {
         List<EstimatedCall> estimatedCallList = new ArrayList<>();
-        if (calls != null && !calls.isEmpty()) {
+        if (!isNullOrEmpty(calls)) {
             for (EstimatedCallRecord call : calls) {
                 estimatedCallList.add(convert(call));
             }
@@ -316,8 +309,7 @@ public class EstimatedTimetableDeliveryConverter extends Avro2JaxbEnumConverter 
 
         mapped.setStopPointRef(setValue(StopPointRefStructure.class, call.getStopPointRef()));
 
-        if (call.getStopPointNames() != null &&
-                !call.getStopPointNames().isEmpty()) {
+        if (!isNullOrEmpty(call.getStopPointNames())) {
             mapped.getStopPointNames().addAll(setTranslatedValues(NaturalLanguageStringStructure.class,
                     call.getStopPointNames())
             );
@@ -334,8 +326,7 @@ public class EstimatedTimetableDeliveryConverter extends Avro2JaxbEnumConverter 
         if (call.getExtraCall() != null) {
             mapped.setExtraCall(call.getExtraCall());
         }
-        if (call.getDestinationDisplays() != null &&
-                !call.getDestinationDisplays().isEmpty()) {
+        if (!isNullOrEmpty(call.getDestinationDisplays())) {
             mapped.getDestinationDisplaies()
                     .addAll(setTranslatedValues(NaturalLanguageStringStructure.class, call.getDestinationDisplays())
                     );
@@ -355,8 +346,7 @@ public class EstimatedTimetableDeliveryConverter extends Avro2JaxbEnumConverter 
         if (call.getArrivalBoardingActivity() != null) {
             mapped.setArrivalBoardingActivity(ArrivalBoardingActivityEnumeration.valueOf(call.getArrivalBoardingActivity().name()));
         }
-        if (call.getArrivalStopAssignments() != null &&
-                !call.getArrivalStopAssignments().isEmpty()) {
+        if (!isNullOrEmpty(call.getArrivalStopAssignments())) {
             mapped.getArrivalStopAssignments().addAll(convertStopAssignments(call.getArrivalStopAssignments()));
         }
 
@@ -383,22 +373,19 @@ public class EstimatedTimetableDeliveryConverter extends Avro2JaxbEnumConverter 
                     DepartureBoardingActivityEnumeration.valueOf(call.getDepartureBoardingActivity().name())
             );
         }
-        if (call.getDepartureStopAssignments() != null &&
-                !call.getDepartureStopAssignments().isEmpty()) {
+        if (!isNullOrEmpty(call.getDepartureStopAssignments())) {
             mapped.getDepartureStopAssignments().addAll(convertStopAssignments(call.getDepartureStopAssignments()));
         }
-        if (call.getRecordedDepartureOccupancies() != null &&
-                !call.getRecordedDepartureOccupancies().isEmpty()) {
+        if (!isNullOrEmpty(call.getRecordedDepartureOccupancies())) {
             mapped.getRecordedDepartureOccupancies().addAll(convertOccupancies(call.getRecordedDepartureOccupancies()));
         }
 
-        if (call.getRecordedDepartureCapacities() != null &&
-                !call.getRecordedDepartureCapacities().isEmpty()) {
+        if (!isNullOrEmpty(call.getRecordedDepartureCapacities())) {
             mapped.getRecordedDepartureCapacities().addAll(convertCapacities(call.getRecordedDepartureCapacities()));
         }
 
 
-//        if (call.getExtensions() != null && !call.getExtensions().isEmpty()) {
+//        if (!isNullOrEmpty(call.getExtensions())) {
 //            mapped.setExtensions(convert(call.getExtensions()));
 //        }
 
@@ -407,7 +394,7 @@ public class EstimatedTimetableDeliveryConverter extends Avro2JaxbEnumConverter 
 
     private static List<PassengerCapacityStructure> convertCapacities(List<PassengerCapacityRecord> capacities) {
         List<PassengerCapacityStructure> capacityStructures = new ArrayList<>();
-        if (capacities != null && !capacities.isEmpty()) {
+        if (!isNullOrEmpty(capacities)) {
             for (PassengerCapacityRecord capacity : capacities) {
                 capacityStructures.add(convert(capacity));
             }
@@ -437,7 +424,7 @@ public class EstimatedTimetableDeliveryConverter extends Avro2JaxbEnumConverter 
 
     private static List<VehicleOccupancyStructure> convertOccupancies(List<VehicleOccupancyRecord> occupancies) {
         List<VehicleOccupancyStructure> vehicleOccupancies = new ArrayList<>();
-        if (occupancies != null && !occupancies.isEmpty()) {
+        if (!isNullOrEmpty(occupancies)) {
             for (VehicleOccupancyRecord occupancy : occupancies) {
                 vehicleOccupancies.add(convert(occupancy));
             }
@@ -471,8 +458,7 @@ public class EstimatedTimetableDeliveryConverter extends Avro2JaxbEnumConverter 
         EstimatedCall mapped = new EstimatedCall();
 
         mapped.setStopPointRef(setValue(StopPointRefStructure.class, call.getStopPointRef()));
-        if (call.getStopPointNames() != null &&
-                !call.getStopPointNames().isEmpty()) {
+        if (!isNullOrEmpty(call.getStopPointNames())) {
             mapped.getStopPointNames().addAll(setTranslatedValues(NaturalLanguageStringStructure.class,
                     call.getStopPointNames())
             );
@@ -492,8 +478,7 @@ public class EstimatedTimetableDeliveryConverter extends Avro2JaxbEnumConverter 
         if (call.getExtraCall() != null) {
             mapped.setExtraCall(call.getExtraCall());
         }
-        if (call.getDestinationDisplays() != null &&
-                !call.getDestinationDisplays().isEmpty()) {
+        if (!isNullOrEmpty(call.getDestinationDisplays())) {
             mapped.getDestinationDisplaies().addAll(
                     setTranslatedValues(
                             NaturalLanguageStringStructure.class,
@@ -515,8 +500,7 @@ public class EstimatedTimetableDeliveryConverter extends Avro2JaxbEnumConverter 
                     ArrivalBoardingActivityEnumeration.valueOf(call.getArrivalBoardingActivity().name())
             );
         }
-        if (call.getArrivalStopAssignments() != null &&
-                !call.getArrivalStopAssignments().isEmpty()) {
+        if (!isNullOrEmpty(call.getArrivalStopAssignments())) {
             mapped.getArrivalStopAssignments().addAll(convertStopAssignments(call.getArrivalStopAssignments()));
         }
         if (call.getArrivalPlatformName() != null) {
@@ -539,8 +523,7 @@ public class EstimatedTimetableDeliveryConverter extends Avro2JaxbEnumConverter 
                     DepartureBoardingActivityEnumeration.valueOf(call.getDepartureBoardingActivity().name())
             );
         }
-        if (call.getDepartureStopAssignments() != null &&
-                !call.getDepartureStopAssignments().isEmpty()) {
+        if (!isNullOrEmpty(call.getDepartureStopAssignments())) {
             mapped.getDepartureStopAssignments().addAll(convertStopAssignments(call.getDepartureStopAssignments()));
         }
         if (call.getDeparturePlatformName() != null) {
@@ -548,12 +531,12 @@ public class EstimatedTimetableDeliveryConverter extends Avro2JaxbEnumConverter 
                     setValue(NaturalLanguageStringStructure.class, call.getDeparturePlatformName())
             );
         }
-        if (call.getExpectedDepartureOccupancies() != null && !call.getExpectedDepartureOccupancies().isEmpty()) {
+        if (!isNullOrEmpty(call.getExpectedDepartureOccupancies())) {
             mapped.getExpectedDepartureOccupancies().addAll(
                     convertOccupancies(call.getExpectedDepartureOccupancies())
             );
         }
-        if (call.getExpectedDepartureCapacities() != null && !call.getExpectedDepartureCapacities().isEmpty()) {
+        if (!isNullOrEmpty(call.getExpectedDepartureCapacities())) {
             mapped.getExpectedDepartureCapacities().addAll(
                     convertCapacities(call.getExpectedDepartureCapacities())
             );
@@ -564,7 +547,7 @@ public class EstimatedTimetableDeliveryConverter extends Avro2JaxbEnumConverter 
 
     private static List<StopAssignmentStructure> convertStopAssignments(List<StopAssignmentRecord> stopAssignmentRecords) {
         List<StopAssignmentStructure> stopAssignments = new ArrayList<>();
-        if (stopAssignmentRecords != null && !stopAssignmentRecords.isEmpty()) {
+        if (!isNullOrEmpty(stopAssignmentRecords)) {
             for (StopAssignmentRecord assignmentRecord : stopAssignmentRecords) {
                 stopAssignments.add(convert(assignmentRecord));
             }

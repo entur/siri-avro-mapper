@@ -8,8 +8,16 @@ import uk.org.siri.siri21.VehicleMonitoringDeliveryStructure;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+
+import static org.entur.avro.realtime.siri.converter.CommonConverter.isNullOrEmpty;
 
 public class Helper {
+
+    static {
+        CommonConverter.forceTimeZone = ZoneId.of("Europe/Oslo");
+    }
 
     public static String init(String path) throws IOException {
 
@@ -23,7 +31,7 @@ public class Helper {
         return xml;
     }
 
-    private static String readFile(String path) throws IOException {
+    static String readFile(String path) throws IOException {
 
         RandomAccessFile raf = new RandomAccessFile(path, "rw");
         byte[] contents = new byte[(int) raf.length()];
@@ -35,20 +43,17 @@ public class Helper {
         int numberOfVMMessages = 0;
         int numberOfSXMessages = 0;
         if (s.getServiceDelivery() != null) {
-            if (s.getServiceDelivery().getEstimatedTimetableDeliveries() != null
-                    && !s.getServiceDelivery().getEstimatedTimetableDeliveries().isEmpty()) {
+            if (!isNullOrEmpty(s.getServiceDelivery().getEstimatedTimetableDeliveries())) {
                 for (EstimatedTimetableDeliveryStructure delivery : s.getServiceDelivery().getEstimatedTimetableDeliveries()) {
                     for (EstimatedVersionFrameStructure estimatedJourneyVersionFrame : delivery.getEstimatedJourneyVersionFrames()) {
                         numberOfETMessages = estimatedJourneyVersionFrame.getEstimatedVehicleJourneies().size();
                     }
                 }
-            } else if (s.getServiceDelivery().getVehicleMonitoringDeliveries() != null
-                    && !s.getServiceDelivery().getVehicleMonitoringDeliveries().isEmpty()) {
+            } else if (!isNullOrEmpty(s.getServiceDelivery().getVehicleMonitoringDeliveries())) {
                 for (VehicleMonitoringDeliveryStructure delivery : s.getServiceDelivery().getVehicleMonitoringDeliveries()) {
                     numberOfVMMessages = delivery.getVehicleActivities().size();
                 }
-            } else if (s.getServiceDelivery().getSituationExchangeDeliveries() != null
-                    && !s.getServiceDelivery().getSituationExchangeDeliveries().isEmpty()) {
+            } else if (!isNullOrEmpty(s.getServiceDelivery().getSituationExchangeDeliveries())) {
                 for (SituationExchangeDeliveryStructure delivery : s.getServiceDelivery().getSituationExchangeDeliveries()) {
                     numberOfSXMessages = delivery.getSituations().getPtSituationElements().size();
                 }

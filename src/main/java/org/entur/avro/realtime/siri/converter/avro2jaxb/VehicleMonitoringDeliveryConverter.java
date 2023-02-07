@@ -24,8 +24,6 @@ import uk.org.siri.siri21.VehicleModesEnumeration;
 import uk.org.siri.siri21.VehicleMonitoringDeliveryStructure;
 import uk.org.siri.siri21.VehicleRef;
 
-import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.DatatypeFactory;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -33,16 +31,6 @@ import java.util.Collection;
 import java.util.List;
 
 public class VehicleMonitoringDeliveryConverter extends Avro2JaxbEnumConverter {
-
-    private static final DatatypeFactory datatypeFactory;
-
-    static {
-        try {
-            datatypeFactory = DatatypeFactory.newInstance();
-        } catch (DatatypeConfigurationException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     public static Collection<VehicleMonitoringDeliveryStructure> convert(List<VehicleMonitoringDeliveryRecord> vmDeliveries) {
         List<VehicleMonitoringDeliveryStructure> results = new ArrayList<>();
@@ -68,7 +56,7 @@ public class VehicleMonitoringDeliveryConverter extends Avro2JaxbEnumConverter {
         return results;
     }
 
-    private static VehicleActivityStructure convert(VehicleActivityRecord vehicleActivityRecord) {
+    static VehicleActivityStructure convert(VehicleActivityRecord vehicleActivityRecord) {
         VehicleActivityStructure a = new VehicleActivityStructure();
         if (vehicleActivityRecord.getRecordedAtTime() != null) {
             a.setRecordedAtTime(convertDate(vehicleActivityRecord.getRecordedAtTime()));
@@ -107,10 +95,10 @@ public class VehicleMonitoringDeliveryConverter extends Avro2JaxbEnumConverter {
         if (rec.getFramedVehicleJourneyRef() != null) {
             vehicleJourney.setFramedVehicleJourneyRef(convert(rec.getFramedVehicleJourneyRef()));
         }
-        if (rec.getVehicleModes() != null && !rec.getVehicleModes().isEmpty()) {
+        if (!isNullOrEmpty(rec.getVehicleModes())) {
             vehicleJourney.getVehicleModes().addAll(resolveVehicleModes(rec.getVehicleModes()));
         }
-        if (rec.getPublishedLineNames() != null && !rec.getPublishedLineNames().isEmpty()) {
+        if (!isNullOrEmpty(rec.getPublishedLineNames())) {
             vehicleJourney.getPublishedLineNames().addAll(
                     setTranslatedValues(NaturalLanguageStringStructure.class, rec.getPublishedLineNames())
             );
@@ -121,13 +109,13 @@ public class VehicleMonitoringDeliveryConverter extends Avro2JaxbEnumConverter {
         if (rec.getOriginRef() != null) {
             vehicleJourney.setOriginRef(setValue(JourneyPlaceRefStructure.class, rec.getOriginRef()));
         }
-        if (rec.getOriginNames() != null && !rec.getOriginNames().isEmpty()) {
+        if (!isNullOrEmpty(rec.getOriginNames())) {
             vehicleJourney.getOriginNames().addAll(setTranslatedValues(NaturalLanguagePlaceNameStructure.class, rec.getOriginNames()));
         }
         if (rec.getDestinationRef() != null) {
             vehicleJourney.setDestinationRef(setValue(DestinationRef.class, rec.getDestinationRef()));
         }
-        if (rec.getDestinationNames() != null && !rec.getDestinationNames().isEmpty()) {
+        if (!isNullOrEmpty(rec.getDestinationNames())) {
             vehicleJourney.getDestinationNames().addAll(setTranslatedValues(NaturalLanguageStringStructure.class, rec.getDestinationNames()));
         }
         if (rec.getOriginAimedDepartureTime() != null) {
@@ -175,10 +163,6 @@ public class VehicleMonitoringDeliveryConverter extends Avro2JaxbEnumConverter {
         return vehicleJourney;
     }
 
-    private static javax.xml.datatype.Duration convertDuration(CharSequence duration) {
-        return datatypeFactory.newDuration((String) duration);
-    }
-
     private static MonitoredCallStructure convert(CallRecord call) {
         MonitoredCallStructure monitoredCallStructure = new MonitoredCallStructure();
         if (call.getStopPointRef() != null) {
@@ -187,7 +171,7 @@ public class VehicleMonitoringDeliveryConverter extends Avro2JaxbEnumConverter {
         if (call.getOrder() != null) {
             monitoredCallStructure.setOrder(BigInteger.valueOf(call.getOrder()));
         }
-        if (call.getStopPointNames() != null && !call.getStopPointNames().isEmpty()) {
+        if (!isNullOrEmpty(call.getStopPointNames())) {
             monitoredCallStructure.getStopPointNames()
                     .addAll(setTranslatedValues(NaturalLanguageStringStructure.class, call.getStopPointNames()));
         }
@@ -197,7 +181,7 @@ public class VehicleMonitoringDeliveryConverter extends Avro2JaxbEnumConverter {
         if (call.getVehicleLocationAtStop() != null) {
             monitoredCallStructure.setVehicleLocationAtStop(convert(call.getVehicleLocationAtStop()));
         }
-        if (call.getDestionationDisplays() != null && !call.getDestionationDisplays().isEmpty()) {
+        if (!isNullOrEmpty(call.getDestionationDisplays())) {
             monitoredCallStructure.getDestinationDisplaies()
                     .addAll(setTranslatedValues(NaturalLanguageStringStructure.class, call.getDestionationDisplays()));
         }
