@@ -19,18 +19,25 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+import static java.time.temporal.ChronoField.NANO_OF_SECOND;
 
 public class CommonConverter {
 
 
     static final Logger LOG = LoggerFactory.getLogger(CommonConverter.class);
 
-    static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSz");
+    static final DateTimeFormatter dateTimeFormatter =  new DateTimeFormatterBuilder()
+            .appendPattern("yyyy-MM-dd'T'HH:mm:ss")
+            .appendFraction(NANO_OF_SECOND, 0, 6, true)
+            .appendZoneId()
+            .toFormatter();
+
     private static final DatatypeFactory datatypeFactory;
     protected static ZoneId forceTimeZone;
 
