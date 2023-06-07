@@ -181,9 +181,9 @@ public class VehicleMonitoringDeliveryConverter extends Avro2JaxbEnumConverter {
         if (call.getVehicleLocationAtStop() != null) {
             monitoredCallStructure.setVehicleLocationAtStop(convert(call.getVehicleLocationAtStop()));
         }
-        if (!isNullOrEmpty(call.getDestionationDisplays())) {
+        if (!isNullOrEmpty(call.getDestinationDisplays())) {
             monitoredCallStructure.getDestinationDisplaies()
-                    .addAll(setTranslatedValues(NaturalLanguageStringStructure.class, call.getDestionationDisplays()));
+                    .addAll(setTranslatedValues(NaturalLanguageStringStructure.class, call.getDestinationDisplays()));
         }
         return monitoredCallStructure;
     }

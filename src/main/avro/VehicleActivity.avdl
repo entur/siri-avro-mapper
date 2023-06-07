@@ -59,6 +59,6 @@ protocol VehicleActivity {
 		array<TranslatedStringRecord> stopPointNames = [];
 		boolean? vehicleAtStop;
 		LocationRecord? vehicleLocationAtStop;
-		array<TranslatedStringRecord> destionationDisplays = [];
+		array<TranslatedStringRecord> destinationDisplays = [];
 	}
 }

@@ -114,7 +114,7 @@ public class VehicleMonitoringDeliveryConverter extends Jaxb2AvroEnumConverter {
                 .setStopPointNames(convertNames(monitoredCall.getStopPointNames()))
                 .setVehicleAtStop(monitoredCall.isVehicleAtStop())
                 .setVehicleLocationAtStop(convert(monitoredCall.getVehicleLocationAtStop()))
-                .setDestionationDisplays(convertNames(monitoredCall.getDestinationDisplaies()))
+                .setDestinationDisplays(convertNames(monitoredCall.getDestinationDisplaies()))
                 .build();
     }
 
