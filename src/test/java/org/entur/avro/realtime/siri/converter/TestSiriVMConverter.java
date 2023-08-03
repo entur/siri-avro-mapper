@@ -2,23 +2,23 @@ package org.entur.avro.realtime.siri.converter;
 
 import org.entur.avro.realtime.siri.model.SiriRecord;
 import org.entur.siri21.util.SiriXml;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import uk.org.siri.siri21.Siri;
 
-import javax.xml.bind.JAXBException;
+import jakarta.xml.bind.JAXBException;
 import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 
 import static org.entur.avro.realtime.siri.converter.Converter.avro2Jaxb;
 import static org.entur.avro.realtime.siri.converter.Converter.jaxb2Avro;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestSiriVMConverter extends Helper{
 
     private static String xml;
 
-    @BeforeClass
+    @BeforeAll
     public static void init() throws IOException {
         xml = init("src/test/resources/vm.xml");
     }

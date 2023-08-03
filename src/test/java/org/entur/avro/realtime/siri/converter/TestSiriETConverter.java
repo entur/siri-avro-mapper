@@ -2,30 +2,29 @@ package org.entur.avro.realtime.siri.converter;
 
 import org.entur.avro.realtime.siri.model.SiriRecord;
 import org.entur.siri21.util.SiriXml;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
-import uk.org.siri.siri21.EstimatedVehicleJourney;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import uk.org.siri.siri21.Siri;
 
-import javax.xml.bind.JAXBException;
+import jakarta.xml.bind.JAXBException;
 import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 
 import static org.entur.avro.realtime.siri.converter.Converter.avro2Jaxb;
 import static org.entur.avro.realtime.siri.converter.Converter.jaxb2Avro;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestSiriETConverter extends Helper {
 
     private static String xml;
 
-    @BeforeClass
+    @BeforeAll
     public static void init() throws IOException {
         xml = init("src/test/resources/et.xml");
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     public void testConvert() throws XMLStreamException, JAXBException {
         Siri s = SiriXml.parseXml(xml);
 
@@ -39,7 +38,7 @@ public class TestSiriETConverter extends Helper {
 
 
     @Test
-    @Ignore
+    @Disabled
     public void testPerformance() throws XMLStreamException, JAXBException {
         Siri s = SiriXml.parseXml(xml);
 

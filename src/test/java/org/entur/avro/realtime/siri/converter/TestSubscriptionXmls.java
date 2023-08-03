@@ -2,10 +2,10 @@ package org.entur.avro.realtime.siri.converter;
 
 import org.entur.avro.realtime.siri.model.SiriRecord;
 import org.entur.siri21.util.SiriXml;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import uk.org.siri.siri21.Siri;
 
-import javax.xml.bind.JAXBException;
+import jakarta.xml.bind.JAXBException;
 import javax.xml.stream.XMLStreamException;
 import java.io.File;
 import java.io.IOException;
@@ -13,7 +13,7 @@ import java.io.IOException;
 import static org.entur.avro.realtime.siri.converter.Converter.avro2Jaxb;
 import static org.entur.avro.realtime.siri.converter.Converter.jaxb2Avro;
 import static org.entur.avro.realtime.siri.converter.Helper.readFile;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestSubscriptionXmls {
 
@@ -32,7 +32,7 @@ public class TestSubscriptionXmls {
             SiriRecord siriRecord = jaxb2Avro(s);
             Siri siri = avro2Jaxb(siriRecord);
 
-            assertEquals(testFile.getName() + " failed", SiriXml.toXml(s), SiriXml.toXml(siri));
+            assertEquals(SiriXml.toXml(s), SiriXml.toXml(siri), testFile.getName() + " failed");
 
         }
     }

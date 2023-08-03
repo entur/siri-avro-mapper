@@ -316,7 +316,7 @@ public class CommonConverter {
         return null;
     }
 
-    protected static javax.xml.datatype.Duration convertDuration(CharSequence duration) {
-        return datatypeFactory.newDuration((String) duration);
+    protected static java.time.Duration convertDuration(CharSequence duration) {
+        return Duration.parse(duration);
     }
 }
