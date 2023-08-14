@@ -8,9 +8,9 @@
     <artifactId>siri-avro-mapper</artifactId>
     <version>2.1-SNAPSHOT</version>
 
-    <name>siri-avro-model</name>
+    <name>siri-avro-mapper</name>
     <description>Avro-objects and mapping from/to objects from the public SIRI XSDs</description>
-    <url>https://github.com/entur/siri-avro-model</url>
+    <url>https://github.com/entur/siri-avro-mapper</url>
     <licenses>
         <license>
             <name>EUPL-1.2 with modifications</name>
@@ -29,9 +29,9 @@
     </developers>
 
     <scm>
-        <connection>scm:git:ssh://git@github.com/entur/siri-avro-model.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com/entur/siri-avro-model.git</developerConnection>
-        <url>https://github.com/entur/siri-avro-model/tree/master</url>
+        <connection>scm:git:ssh://git@github.com/entur/siri-avro-mapper.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/entur/siri-avro-mapper.git</developerConnection>
+        <url>https://github.com/entur/siri-avro-mapper/tree/master</url>
         <tag>HEAD</tag>
     </scm>
 
@@ -68,6 +68,17 @@
             <groupId>org.entur</groupId>
             <artifactId>siri-java-model</artifactId>
            <version>1.22</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.entur</groupId>
+            <artifactId>siri-avro-model</artifactId>
+           <version>1.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.15.2</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -128,24 +139,6 @@
             </plugins>
         </pluginManagement>
         <plugins>
-            <plugin>
-                <groupId>org.apache.avro</groupId>
-                <artifactId>avro-maven-plugin</artifactId>
-                <version>${avro.version}</version>
-                <executions>
-                    <execution>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>idl-protocol</goal>
-                        </goals>
-                        <configuration>
-                            <sourceDirectory>${project.basedir}/src/main/avro/</sourceDirectory>
-                            <outputDirectory>${project.build.directory}/generated-sources</outputDirectory>
-                            <fieldVisibility>PRIVATE</fieldVisibility>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>
