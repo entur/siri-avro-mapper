@@ -4,6 +4,8 @@ import org.entur.avro.realtime.siri.model.AccessibilityAssessmentRecord;
 import org.entur.avro.realtime.siri.model.AccessibilityEnum;
 import org.entur.avro.realtime.siri.model.AccessibilityFeatureEnum;
 import org.entur.avro.realtime.siri.model.AccessibilityLimitationRecord;
+import org.entur.avro.realtime.siri.model.AdviceRecord;
+import org.entur.avro.realtime.siri.model.AdviceTypeEnum;
 import org.entur.avro.realtime.siri.model.AffectedComponentsRecord;
 import org.entur.avro.realtime.siri.model.AffectedLineRecord;
 import org.entur.avro.realtime.siri.model.AffectedNetworkRecord;
@@ -15,6 +17,7 @@ import org.entur.avro.realtime.siri.model.AffectedStopPlaceRecord;
 import org.entur.avro.realtime.siri.model.AffectedStopPointRecord;
 import org.entur.avro.realtime.siri.model.AffectedVehicleJourneyRecord;
 import org.entur.avro.realtime.siri.model.AffectsRecord;
+import org.entur.avro.realtime.siri.model.ConsequenceRecord;
 import org.entur.avro.realtime.siri.model.IndirectSectionRefRecord;
 import org.entur.avro.realtime.siri.model.InfoLinkRecord;
 import org.entur.avro.realtime.siri.model.PtSituationElementRecord;
@@ -40,6 +43,9 @@ import uk.org.siri.siri21.AffectedVehicleJourneyStructure;
 import uk.org.siri.siri21.AffectsScopeStructure;
 import uk.org.siri.siri21.HalfOpenTimestampOutputRangeStructure;
 import uk.org.siri.siri21.InfoLinkStructure;
+import uk.org.siri.siri21.PtAdviceStructure;
+import uk.org.siri.siri21.PtConsequenceStructure;
+import uk.org.siri.siri21.PtConsequencesStructure;
 import uk.org.siri.siri21.PtSituationElement;
 import uk.org.siri.siri21.SituationExchangeDeliveryStructure;
 import uk.org.siri.siri21.SituationSourceStructure;
@@ -108,6 +114,31 @@ public class SituationExchangeDeliveryConverter extends Jaxb2AvroEnumConverter {
                 .setAdvices(getTranslatedValues(element.getAdvices()))
                 .setInfoLinks(convert(element.getInfoLinks()))
                 .setAffects(convert(element.getAffects()))
+                .setConsequences(convert(element.getConsequences()))
+                .build();
+    }
+
+    private static List<ConsequenceRecord> convert(PtConsequencesStructure consequences) {
+        if (consequences == null) {
+            return Collections.emptyList();
+        }
+        List<ConsequenceRecord> records = new ArrayList<>();
+        for (PtConsequenceStructure consequence : consequences.getConsequences()) {
+            records.add(ConsequenceRecord
+                    .newBuilder()
+                    .setAdvice(convert(consequence.getAdvice()))
+                    .build()
+            );
+        }
+        return records;
+    }
+
+    private static AdviceRecord convert(PtAdviceStructure advice) {
+        if (advice == null) {
+            return null;
+        }
+        return AdviceRecord.newBuilder()
+                .setAdviceType(convert(advice.getAdviceType()))
                 .build();
     }
 

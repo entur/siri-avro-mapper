@@ -163,6 +163,13 @@
 							</AffectedVehicleJourney>
 						</VehicleJourneys>
 					</Affects>
+                    <Consequences>
+                        <Consequence>
+                            <Advice>
+                                <AdviceType>useOtherPT</AdviceType>
+                            </Advice>
+                        </Consequence>
+                    </Consequences>
 				</PtSituationElement>
 				<PtSituationElement>
 					<CreationTime>2023-01-09T12:36:32+01:00</CreationTime>

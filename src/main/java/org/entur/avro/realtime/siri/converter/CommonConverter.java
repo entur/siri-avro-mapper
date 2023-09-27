@@ -92,7 +92,7 @@ public class CommonConverter {
         }
     }
     /**
-     * Uses reflection to call "getValue()" to fetch actual values from provided object
+     * Uses reflection to call "setValue()" to set actual values from provided object
      * @param clazz
      * @param value
      * @return

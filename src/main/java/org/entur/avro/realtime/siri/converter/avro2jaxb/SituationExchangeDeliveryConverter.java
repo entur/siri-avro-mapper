@@ -3,6 +3,7 @@ package org.entur.avro.realtime.siri.converter.avro2jaxb;
 import org.entur.avro.realtime.siri.model.AccessibilityAssessmentRecord;
 import org.entur.avro.realtime.siri.model.AccessibilityFeatureEnum;
 import org.entur.avro.realtime.siri.model.AccessibilityLimitationRecord;
+import org.entur.avro.realtime.siri.model.AdviceRecord;
 import org.entur.avro.realtime.siri.model.AffectedComponentsRecord;
 import org.entur.avro.realtime.siri.model.AffectedLineRecord;
 import org.entur.avro.realtime.siri.model.AffectedNetworkRecord;
@@ -14,6 +15,7 @@ import org.entur.avro.realtime.siri.model.AffectedStopPlaceRecord;
 import org.entur.avro.realtime.siri.model.AffectedStopPointRecord;
 import org.entur.avro.realtime.siri.model.AffectedVehicleJourneyRecord;
 import org.entur.avro.realtime.siri.model.AffectsRecord;
+import org.entur.avro.realtime.siri.model.ConsequenceRecord;
 import org.entur.avro.realtime.siri.model.IndirectSectionRefRecord;
 import org.entur.avro.realtime.siri.model.InfoLinkRecord;
 import org.entur.avro.realtime.siri.model.PtSituationElementRecord;
@@ -47,6 +49,9 @@ import uk.org.siri.siri21.LineRef;
 import uk.org.siri.siri21.NaturalLanguageStringStructure;
 import uk.org.siri.siri21.NetworkRefStructure;
 import uk.org.siri.siri21.OperatorRefStructure;
+import uk.org.siri.siri21.PtAdviceStructure;
+import uk.org.siri.siri21.PtConsequenceStructure;
+import uk.org.siri.siri21.PtConsequencesStructure;
 import uk.org.siri.siri21.PtSituationElement;
 import uk.org.siri.siri21.QuayRefStructure;
 import uk.org.siri.siri21.ReportTypeEnumeration;
@@ -184,9 +189,41 @@ public class SituationExchangeDeliveryConverter extends Avro2JaxbEnumConverter {
         if (situation.getAffects() != null) {
             element.setAffects(convert(situation.getAffects()));
         }
-
+        if (!isNullOrEmpty(situation.getConsequences())) {
+            element.setConsequences(convertConsequences(situation.getConsequences()));
+        }
         return element;
     }
+
+    private static PtConsequencesStructure convertConsequences(List<ConsequenceRecord> consequences) {
+        if (consequences == null) {
+            return null;
+        }
+        PtConsequencesStructure consequencesStructure = new PtConsequencesStructure();
+        for (ConsequenceRecord consequence : consequences) {
+            consequencesStructure.getConsequences().add(convert(consequence));
+        }
+        return consequencesStructure;
+    }
+
+    private static PtConsequenceStructure convert(ConsequenceRecord consequence) {
+        if (consequence == null) {
+            return null;
+        }
+        PtConsequenceStructure consequenceStructure = new PtConsequenceStructure();
+        consequenceStructure.setAdvice(convert(consequence.getAdvice()));
+        return consequenceStructure;
+    }
+
+    private static PtAdviceStructure convert(AdviceRecord advice) {
+        if (advice == null) {
+            return null;
+        }
+        PtAdviceStructure adviceStructure = new PtAdviceStructure();
+        adviceStructure.setAdviceType(convert(advice.getAdviceType()));
+        return adviceStructure;
+    }
+
 
     private static AffectsScopeStructure convert(AffectsRecord affects) {
         if (affects == null) {

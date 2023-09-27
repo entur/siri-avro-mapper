@@ -1,6 +1,7 @@
 package org.entur.avro.realtime.siri.converter.avro2jaxb;
 
 import org.entur.avro.realtime.siri.converter.CommonConverter;
+import org.entur.avro.realtime.siri.model.AdviceTypeEnum;
 import org.entur.avro.realtime.siri.model.AirSubmodesEnum;
 import org.entur.avro.realtime.siri.model.BusSubmodesEnum;
 import org.entur.avro.realtime.siri.model.CoachSubmodesEnum;
@@ -15,6 +16,7 @@ import org.entur.avro.realtime.siri.model.VehicleModeEnum;
 import org.entur.avro.realtime.siri.model.VehicleStatusEnum;
 import org.entur.avro.realtime.siri.model.WaterSubmodesEnum;
 import org.entur.avro.realtime.siri.model.WorkflowStatusEnum;
+import uk.org.siri.siri21.AdviceTypeEnumeration;
 import uk.org.siri.siri21.AirSubmodesOfTransportEnumeration;
 import uk.org.siri.siri21.BusSubmodesOfTransportEnumeration;
 import uk.org.siri.siri21.CoachSubmodesOfTransportEnumeration;
@@ -34,6 +36,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Avro2JaxbEnumConverter extends CommonConverter {
+
+    static AdviceTypeEnumeration convert(AdviceTypeEnum adviceType) {
+        if (adviceType == null) {
+            return null;
+        }
+        return AdviceTypeEnumeration.valueOf(adviceType.name());
+    }
 
     static OccupancyEnumeration convert(OccupancyEnum occupancy) {
         if (occupancy == null) {
