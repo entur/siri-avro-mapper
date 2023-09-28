@@ -43,7 +43,7 @@
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <avro.version>1.11.2</avro.version>
+        <avro.version>1.11.3</avro.version>
     </properties>
 
     <dependencies>
