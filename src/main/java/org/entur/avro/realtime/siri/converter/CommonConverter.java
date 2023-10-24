@@ -104,7 +104,7 @@ public class CommonConverter {
 
             Method method = clazz.getMethod("setValue", String.class);
 
-            method.invoke(instance, value);
+            method.invoke(instance, value.toString());
 
             return instance;
         } catch (IllegalAccessException | InvocationTargetException | InstantiationException | NoSuchMethodException e) {
@@ -130,7 +130,7 @@ public class CommonConverter {
 
                 Method method = clazz.getMethod("setValue", String.class);
 
-                method.invoke(instance, value);
+                method.invoke(instance, value.toString());
                 result.add(instance);
             }
 
