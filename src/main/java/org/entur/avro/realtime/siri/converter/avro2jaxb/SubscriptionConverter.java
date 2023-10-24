@@ -77,10 +77,10 @@ public class SubscriptionConverter extends CommonConverter {
             result.setRequestorRef(setValue(RequestorRef.class, subscriptionRequest.getRequestorRef()));
         }
         if (subscriptionRequest.getAddress() != null) {
-            result.setAddress((String) subscriptionRequest.getAddress());
+            result.setAddress(subscriptionRequest.getAddress().toString());
         }
         if (subscriptionRequest.getConsumerAddress() != null) {
-            result.setConsumerAddress((String) subscriptionRequest.getConsumerAddress());
+            result.setConsumerAddress(subscriptionRequest.getConsumerAddress().toString());
         }
         if (subscriptionRequest.getMessageIdentifier() != null) {
             result.setMessageIdentifier(setValue(MessageQualifierStructure.class, subscriptionRequest.getMessageIdentifier()));
@@ -160,7 +160,7 @@ public class SubscriptionConverter extends CommonConverter {
         }
         VehicleMonitoringRequestStructure result = new VehicleMonitoringRequestStructure();
         if (request.getVersion() != null) {
-            result.setVersion((String)request.getVersion());
+            result.setVersion(request.getVersion().toString());
         }
         if (request.getMessageIdentifier() != null) {
             result.setMessageIdentifier(setValue(MessageQualifierStructure.class, request.getMessageIdentifier()));
@@ -210,7 +210,7 @@ public class SubscriptionConverter extends CommonConverter {
         }
         SituationExchangeRequestStructure result = new SituationExchangeRequestStructure();
         if (request.getVersion() != null) {
-            result.setVersion((String) request.getVersion());
+            result.setVersion( request.getVersion().toString());
         }
         if (request.getMessageIdentifier() != null) {
             result.setMessageIdentifier(setValue(MessageQualifierStructure.class, request.getMessageIdentifier()));
@@ -267,7 +267,7 @@ public class SubscriptionConverter extends CommonConverter {
         }
         EstimatedTimetableRequestStructure result = new EstimatedTimetableRequestStructure();
         if (request.getVersion() != null) {
-            result.setVersion((String) request.getVersion());
+            result.setVersion(request.getVersion().toString());
         }
         if (request.getRequestTimestamp() != null) {
             result.setRequestTimestamp(convertDate(request.getRequestTimestamp()));
@@ -341,7 +341,7 @@ public class SubscriptionConverter extends CommonConverter {
         if (status.getErrorText() != null) {
             ServiceDeliveryErrorConditionElement errorCondition = new ServiceDeliveryErrorConditionElement();
             OtherErrorStructure otherError = new OtherErrorStructure();
-            otherError.setErrorText((String) status.getErrorText());
+            otherError.setErrorText(status.getErrorText().toString());
             errorCondition.setOtherError(otherError);
             result.setErrorCondition(errorCondition);
         }
@@ -412,7 +412,7 @@ public class SubscriptionConverter extends CommonConverter {
         }
         TerminationResponseStatusStructure.ErrorCondition errorCondition = new TerminationResponseStatusStructure.ErrorCondition();
         OtherErrorStructure otherError = new OtherErrorStructure();
-        otherError.setErrorText((String) errorText);
+        otherError.setErrorText(errorText.toString());
         errorCondition.setOtherError(otherError);
 
         return errorCondition;

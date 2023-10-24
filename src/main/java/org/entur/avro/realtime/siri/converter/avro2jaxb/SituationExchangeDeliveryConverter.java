@@ -99,7 +99,7 @@ public class SituationExchangeDeliveryConverter extends Avro2JaxbEnumConverter {
         }
         SituationExchangeDeliveryStructure sxDelivery = new SituationExchangeDeliveryStructure();
         if (delivery.getVersion() != null) {
-            sxDelivery.setVersion((String)delivery.getVersion());
+            sxDelivery.setVersion(delivery.getVersion().toString());
         }
         if (delivery.getResponseTimestamp() != null) {
             sxDelivery.setResponseTimestamp(convertDate(delivery.getResponseTimestamp()));
@@ -154,7 +154,7 @@ public class SituationExchangeDeliveryConverter extends Avro2JaxbEnumConverter {
         }
         if (situation.getUndefinedReason() != null) {
             // (TODO: Hard-coded as defined in Nordic SIRI profile - should probably be more generic...
-            element.setUndefinedReason((String) situation.getUndefinedReason());
+            element.setUndefinedReason(situation.getUndefinedReason().toString());
         }
         if (situation.getSeverity() != null) {
             element.setSeverity(convert(situation.getSeverity()));
@@ -611,7 +611,7 @@ public class SituationExchangeDeliveryConverter extends Avro2JaxbEnumConverter {
         }
         InfoLinkStructure result = new InfoLinkStructure();
         if (infoLink.getUri() != null) {
-            result.setUri((String) infoLink.getUri());
+            result.setUri(infoLink.getUri().toString());
         }
         if (!isNullOrEmpty(infoLink.getLabels())) {
             result.getLabels().addAll(setTranslatedValues(NaturalLanguageStringStructure.class, infoLink.getLabels()));

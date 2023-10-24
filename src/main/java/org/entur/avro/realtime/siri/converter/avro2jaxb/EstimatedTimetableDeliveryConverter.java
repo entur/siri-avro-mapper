@@ -59,7 +59,7 @@ public class EstimatedTimetableDeliveryConverter extends Avro2JaxbEnumConverter 
 
             EstimatedTimetableDeliveryStructure estimatedTimetableDeliveryStructure = new EstimatedTimetableDeliveryStructure();
             estimatedTimetableDeliveryStructure.setResponseTimestamp(convertDate(delivery.getResponseTimestamp()));
-            estimatedTimetableDeliveryStructure.setVersion((String) delivery.getVersion());
+            estimatedTimetableDeliveryStructure.setVersion(delivery.getVersion().toString());
 
             for (EstimatedJourneyVersionFrameRecord versionFrame : delivery.getEstimatedJourneyVersionFrames()) {
                 estimatedTimetableDeliveryStructure
@@ -121,7 +121,7 @@ public class EstimatedTimetableDeliveryConverter extends Avro2JaxbEnumConverter 
             mapped.setFramedVehicleJourneyRef(convert(estimatedVehicleJourney.getFramedVehicleJourneyRef()));
         }
         if (estimatedVehicleJourney.getEstimatedVehicleJourneyCode() != null) {
-            mapped.setEstimatedVehicleJourneyCode((String) estimatedVehicleJourney.getEstimatedVehicleJourneyCode());
+            mapped.setEstimatedVehicleJourneyCode(estimatedVehicleJourney.getEstimatedVehicleJourneyCode().toString());
         }
         if (estimatedVehicleJourney.getJourneyPatternRef() != null) {
             mapped.setJourneyPatternRef(setValue(
@@ -225,7 +225,7 @@ public class EstimatedTimetableDeliveryConverter extends Avro2JaxbEnumConverter 
             mapped.setExtraJourney(estimatedVehicleJourney.getExtraJourney());
         }
         if (estimatedVehicleJourney.getDataSource() != null) {
-            mapped.setDataSource((String) estimatedVehicleJourney.getDataSource());
+            mapped.setDataSource(estimatedVehicleJourney.getDataSource().toString());
         }
         if (estimatedVehicleJourney.getOccupancy() != null) {
             mapped.setOccupancy(convert(estimatedVehicleJourney.getOccupancy()));

@@ -55,8 +55,8 @@ public class Avro2JaxbConverter extends CommonConverter {
 //        Extensions extensions = new Extensions();
 //        Document document = getDocument();
 //        for (Map.Entry<CharSequence, CharSequence> entry : extensionsMap.entrySet()) {
-//            Element element = document.createElement((String) entry.getKey());
-//            element.appendChild(document.createTextNode((String)entry.getValue()));
+//            Element element = document.createElement(entry.getKey().toString());
+//            element.appendChild(document.createTextNode(entry.getValue().toString()));
 //            extensions.getAnies().add(element);
 //        }
 //        return extensions;

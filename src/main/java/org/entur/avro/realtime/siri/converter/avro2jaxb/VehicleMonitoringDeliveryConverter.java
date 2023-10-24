@@ -42,7 +42,7 @@ public class VehicleMonitoringDeliveryConverter extends Avro2JaxbEnumConverter {
                 deliveryStructure.setResponseTimestamp(convertDate(delivery.getResponseTimestamp()));
             }
             if (delivery.getVersion() != null) {
-                deliveryStructure.setVersion((String) delivery.getVersion());
+                deliveryStructure.setVersion(delivery.getVersion().toString());
             }
 
             for (VehicleActivityRecord vehicleActivityRecord : delivery.getVehicleActivities()) {
@@ -126,7 +126,7 @@ public class VehicleMonitoringDeliveryConverter extends Avro2JaxbEnumConverter {
         }
         vehicleJourney.setMonitored(rec.getMonitored());
         if (rec.getDataSource() != null) {
-            vehicleJourney.setDataSource((String)rec.getDataSource());
+            vehicleJourney.setDataSource(rec.getDataSource().toString());
         }
         if (rec.getVehicleLocation() != null) {
             vehicleJourney.setVehicleLocation(convert(rec.getVehicleLocation()));
@@ -191,7 +191,7 @@ public class VehicleMonitoringDeliveryConverter extends Avro2JaxbEnumConverter {
     private static LocationStructure convert(LocationRecord location) {
         LocationStructure loc = new LocationStructure();
         if (location.getSrsName() != null) {
-            loc.setSrsName((String) location.getSrsName());
+            loc.setSrsName(location.getSrsName().toString());
         }
         if (location.getLatitude() != null) {
             loc.setLatitude(convert(location.getLatitude()));

@@ -295,7 +295,7 @@ public class CommonConverter {
         }
         if (framedVehicleJourneyRef.getDatedVehicleJourneyRef() != null) {
             framedVehicleJourneyRefStructure.setDatedVehicleJourneyRef(
-                    (String) framedVehicleJourneyRef.getDatedVehicleJourneyRef()
+                    framedVehicleJourneyRef.getDatedVehicleJourneyRef().toString()
             );
         }
         return framedVehicleJourneyRefStructure;
