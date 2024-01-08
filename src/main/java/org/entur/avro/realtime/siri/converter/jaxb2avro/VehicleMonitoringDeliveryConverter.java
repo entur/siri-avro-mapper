@@ -13,6 +13,7 @@ import uk.org.siri.siri21.VehicleActivityStructure;
 import uk.org.siri.siri21.VehicleMonitoringDeliveryStructure;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class VehicleMonitoringDeliveryConverter extends Jaxb2AvroEnumConverter {
@@ -20,7 +21,7 @@ public class VehicleMonitoringDeliveryConverter extends Jaxb2AvroEnumConverter {
 
     static List<VehicleMonitoringDeliveryRecord> convert(List<VehicleMonitoringDeliveryStructure> deliveries) {
         if (deliveries == null) {
-            return null;
+            return Collections.emptyList();
         }
 
         List<VehicleMonitoringDeliveryRecord> records = new ArrayList<>();

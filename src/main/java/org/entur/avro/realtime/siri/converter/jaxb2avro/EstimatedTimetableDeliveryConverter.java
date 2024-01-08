@@ -38,7 +38,7 @@ public class EstimatedTimetableDeliveryConverter extends Jaxb2AvroEnumConverter 
 
     static List<EstimatedTimetableDeliveryRecord> convert(List<EstimatedTimetableDeliveryStructure> estimatedTimetableDeliveries) {
         if (isNullOrEmpty(estimatedTimetableDeliveries)) {
-            return null;
+            return Collections.emptyList();
         }
 
         List<EstimatedTimetableDeliveryRecord> records = new ArrayList<>();
