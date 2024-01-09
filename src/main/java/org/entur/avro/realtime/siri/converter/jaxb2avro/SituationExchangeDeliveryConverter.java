@@ -124,11 +124,13 @@ public class SituationExchangeDeliveryConverter extends Jaxb2AvroEnumConverter {
         }
         List<ConsequenceRecord> records = new ArrayList<>();
         for (PtConsequenceStructure consequence : consequences.getConsequences()) {
-            records.add(ConsequenceRecord
-                    .newBuilder()
-                    .setAdvice(convert(consequence.getAdvice()))
-                    .build()
-            );
+            if (consequence.getAdvice() != null) {
+                records.add(ConsequenceRecord
+                        .newBuilder()
+                        .setAdvice(convert(consequence.getAdvice()))
+                        .build()
+                );
+            }
         }
         return records;
     }
