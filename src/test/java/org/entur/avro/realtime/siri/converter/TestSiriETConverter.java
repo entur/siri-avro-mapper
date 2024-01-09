@@ -24,7 +24,7 @@ public class TestSiriETConverter extends Helper {
         xml = init("src/test/resources/et.xml");
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     public void testConvert() throws XMLStreamException, JAXBException {
         Siri s = SiriXml.parseXml(xml);
 
@@ -36,6 +36,17 @@ public class TestSiriETConverter extends Helper {
         assertEquals(SiriXml.toXml(s), SiriXml.toXml(siri));
     }
 
+    @Test
+    public void testNativeAvroSerializtion() throws XMLStreamException, JAXBException, IOException {
+        Siri s = SiriXml.parseXml(xml);
+        SiriRecord siriRecord = jaxb2Avro(s);
+
+        byte[] endcodedData = SiriRecord.getEncoder().encode(siriRecord).array();
+
+        SiriRecord decodedObject = SiriRecord.getDecoder().decode(endcodedData);
+
+        assertEquals(siriRecord, decodedObject);
+    }
 
     @Test
     @Disabled
