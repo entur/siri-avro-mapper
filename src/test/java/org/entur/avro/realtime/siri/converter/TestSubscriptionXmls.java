@@ -34,6 +34,10 @@ public class TestSubscriptionXmls {
 
             assertEquals(SiriXml.toXml(s), SiriXml.toXml(siri), testFile.getName() + " failed");
 
+            byte[] bytes = SiriRecord.getEncoder().encode(siriRecord).array();
+
+            SiriRecord decoded = SiriRecord.getDecoder().decode(bytes);
+            assertEquals(siriRecord, decoded);
         }
     }
 }

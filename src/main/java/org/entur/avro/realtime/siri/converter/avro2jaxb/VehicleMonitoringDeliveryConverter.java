@@ -28,6 +28,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class VehicleMonitoringDeliveryConverter extends Avro2JaxbEnumConverter {
@@ -204,7 +205,7 @@ public class VehicleMonitoringDeliveryConverter extends Avro2JaxbEnumConverter {
 
     private static List<VehicleModesEnumeration> resolveVehicleModes(List<VehicleModeEnum> vehicleModes) {
         if (vehicleModes == null) {
-            return null;
+            return Collections.emptyList();
         }
         List<VehicleModesEnumeration> modes = new ArrayList<>();
         for (VehicleModeEnum vehicleMode : vehicleModes) {

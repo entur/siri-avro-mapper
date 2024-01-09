@@ -33,6 +33,7 @@ import uk.org.siri.siri21.WaterSubmodesOfTransportEnumeration;
 import uk.org.siri.siri21.WorkflowStatusEnumeration;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Avro2JaxbEnumConverter extends CommonConverter {
@@ -60,7 +61,7 @@ public class Avro2JaxbEnumConverter extends CommonConverter {
 
     static List<RoutePointTypeEnumeration> convertStopConditions(List<RoutePointTypeEnum> stopConditions) {
         if (stopConditions == null) {
-            return null;
+            return Collections.emptyList();
         }
         List<RoutePointTypeEnumeration> records = new ArrayList<>();
         for (RoutePointTypeEnum stopCondition : stopConditions) {

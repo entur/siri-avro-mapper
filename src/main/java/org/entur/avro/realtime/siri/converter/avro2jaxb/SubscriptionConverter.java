@@ -109,7 +109,7 @@ public class SubscriptionConverter extends CommonConverter {
 
     private static List<VehicleMonitoringSubscriptionStructure> convertVmSubRequests(List<VehicleMonitoringSubscriptionRecord> subscriptionRequests) {
         if (isNullOrEmpty(subscriptionRequests)) {
-            return null;
+            return Collections.emptyList();
         }
         List<VehicleMonitoringSubscriptionStructure> records = new ArrayList<>();
         for (VehicleMonitoringSubscriptionRecord request : subscriptionRequests) {
@@ -173,7 +173,7 @@ public class SubscriptionConverter extends CommonConverter {
 
     private static List<SituationExchangeSubscriptionStructure> convertSxSubRequests(List<SituationExchangeSubscriptionRecord> subscriptionRequests) {
         if (isNullOrEmpty(subscriptionRequests)) {
-            return null;
+            return Collections.emptyList();
         }
         List<SituationExchangeSubscriptionStructure> records = new ArrayList<>();
         for (SituationExchangeSubscriptionRecord request : subscriptionRequests) {
@@ -227,7 +227,7 @@ public class SubscriptionConverter extends CommonConverter {
 
     private static List<EstimatedTimetableSubscriptionStructure> convertEtSubRequests(List<EstimatedTimetableSubscriptionRecord> subscriptionRequests) {
         if (isNullOrEmpty(subscriptionRequests)) {
-            return null;
+            return Collections.emptyList();
         }
         List<EstimatedTimetableSubscriptionStructure> records = new ArrayList<>();
         for (EstimatedTimetableSubscriptionRecord request : subscriptionRequests) {

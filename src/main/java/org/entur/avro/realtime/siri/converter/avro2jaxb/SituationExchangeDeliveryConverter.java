@@ -66,6 +66,7 @@ import uk.org.siri.siri21.VehicleJourneyRef;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class SituationExchangeDeliveryConverter extends Avro2JaxbEnumConverter {
@@ -628,7 +629,7 @@ public class SituationExchangeDeliveryConverter extends Avro2JaxbEnumConverter {
 
     private static List<HalfOpenTimestampOutputRangeStructure> convertValidityPeriods(List<ValidityPeriodRecord> validityPeriods) {
         if (validityPeriods == null) {
-            return null;
+            return Collections.emptyList();
         }
         List<HalfOpenTimestampOutputRangeStructure> result = new ArrayList<>();
         for (ValidityPeriodRecord validityPeriod : validityPeriods) {
