@@ -72,7 +72,7 @@ public class Jaxb2AvroEnumConverter extends CommonConverter {
         return VehicleModeEnum.valueOf(vehicleMode.name());
     }
     static VehicleModeEnum convert(VehicleModesOfTransportEnumeration vehicleMode) {
-        if (vehicleMode == null) {
+        if (vehicleMode == null || vehicleMode.equals(VehicleModesOfTransportEnumeration.UNKNOWN)) {
             return null;
         }
         return VehicleModeEnum.valueOf(vehicleMode.name());
