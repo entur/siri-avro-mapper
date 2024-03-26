@@ -389,6 +389,9 @@
 					<Affects>
 						<Networks>
 							<AffectedNetwork>
+                                <AffectedOperator>
+                                    <OperatorRef>RUT:Operator:1234</OperatorRef>
+                                </AffectedOperator>
 								<NetworkRef>RUT:Network:1</NetworkRef>
 								<AffectedLine>
 									<LineRef>RUT:Line:13</LineRef>

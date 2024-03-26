@@ -261,7 +261,7 @@ public class SituationExchangeDeliveryConverter extends Avro2JaxbEnumConverter {
         AffectsScopeStructure.Networks.AffectedNetwork result = new AffectsScopeStructure.Networks.AffectedNetwork();
         if (!isNullOrEmpty(network.getAffectedOperators())) {
             result.getAffectedOperators().addAll(
-                    setValues(AffectedOperatorStructure.class, network.getAffectedOperators())
+                    convertAffectedOperators(network.getAffectedOperators())
             );
         }
         if (network.getNetworkRef() != null) {
@@ -296,6 +296,14 @@ public class SituationExchangeDeliveryConverter extends Avro2JaxbEnumConverter {
                     .addAll(
                             convertLines(network.getAffectedLines())
                     );
+        }
+        return result;
+    }
+
+    private static List<AffectedOperatorStructure> convertAffectedOperators(List<AffectedOperatorRecord> affectedOperators) {
+        List<AffectedOperatorStructure> result = new ArrayList<>();
+        for (AffectedOperatorRecord affectedOperator : affectedOperators) {
+            result.add(convert(affectedOperator));
         }
         return result;
     }
