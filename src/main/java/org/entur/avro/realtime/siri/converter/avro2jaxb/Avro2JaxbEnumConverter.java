@@ -1,21 +1,6 @@
 package org.entur.avro.realtime.siri.converter.avro2jaxb;
 
 import org.entur.avro.realtime.siri.converter.CommonConverter;
-import org.entur.avro.realtime.siri.model.AdviceTypeEnum;
-import org.entur.avro.realtime.siri.model.AirSubmodesEnum;
-import org.entur.avro.realtime.siri.model.BusSubmodesEnum;
-import org.entur.avro.realtime.siri.model.CoachSubmodesEnum;
-import org.entur.avro.realtime.siri.model.MetroSubmodesEnum;
-import org.entur.avro.realtime.siri.model.OccupancyEnum;
-import org.entur.avro.realtime.siri.model.RailSubmodesEnum;
-import org.entur.avro.realtime.siri.model.RoutePointTypeEnum;
-import org.entur.avro.realtime.siri.model.SeverityEnum;
-import org.entur.avro.realtime.siri.model.SourceTypeEnum;
-import org.entur.avro.realtime.siri.model.TramSubmodesEnum;
-import org.entur.avro.realtime.siri.model.VehicleModeEnum;
-import org.entur.avro.realtime.siri.model.VehicleStatusEnum;
-import org.entur.avro.realtime.siri.model.WaterSubmodesEnum;
-import org.entur.avro.realtime.siri.model.WorkflowStatusEnum;
 import uk.org.siri.siri21.AdviceTypeEnumeration;
 import uk.org.siri.siri21.AirSubmodesOfTransportEnumeration;
 import uk.org.siri.siri21.BusSubmodesOfTransportEnumeration;
@@ -38,120 +23,122 @@ import java.util.List;
 
 public class Avro2JaxbEnumConverter extends CommonConverter {
 
-    static AdviceTypeEnumeration convert(AdviceTypeEnum adviceType) {
+    private static final CharSequence UNKNOWN = "UNKNOWN";
+
+    static AdviceTypeEnumeration convertAdviceType(CharSequence adviceType) {
         if (adviceType == null) {
             return null;
         }
-        return AdviceTypeEnumeration.valueOf(adviceType.name());
+        return AdviceTypeEnumeration.valueOf(adviceType.toString());
     }
 
-    static OccupancyEnumeration convert(OccupancyEnum occupancy) {
+    static OccupancyEnumeration convertOccupancy(CharSequence occupancy) {
         if (occupancy == null) {
             return null;
         }
-        return OccupancyEnumeration.valueOf(occupancy.name());
+        return OccupancyEnumeration.valueOf(occupancy.toString());
     }
 
-    static VehicleStatusEnumeration convert(VehicleStatusEnum vehicleStatus) {
+    static VehicleStatusEnumeration convertVehicleStatus(CharSequence vehicleStatus) {
         if (vehicleStatus == null) {
             return null;
         }
-        return VehicleStatusEnumeration.valueOf(vehicleStatus.name());
+        return VehicleStatusEnumeration.valueOf(vehicleStatus.toString());
     }
 
-    static List<RoutePointTypeEnumeration> convertStopConditions(List<RoutePointTypeEnum> stopConditions) {
+    static List<RoutePointTypeEnumeration> convertStopConditions(List<CharSequence> stopConditions) {
         if (stopConditions == null) {
             return Collections.emptyList();
         }
         List<RoutePointTypeEnumeration> records = new ArrayList<>();
-        for (RoutePointTypeEnum stopCondition : stopConditions) {
-            records.add(convert(stopCondition));
+        for (CharSequence stopCondition : stopConditions) {
+            records.add(convertStopCondition(stopCondition));
         }
         return records;
     }
 
-    static RoutePointTypeEnumeration convert(RoutePointTypeEnum stopCondition) {
+    static RoutePointTypeEnumeration convertStopCondition(CharSequence stopCondition) {
         if (stopCondition == null) {
             return null;
         }
-        return RoutePointTypeEnumeration.valueOf(stopCondition.name());
+        return RoutePointTypeEnumeration.valueOf(stopCondition.toString());
     }
 
-    static SituationSourceTypeEnumeration convert(SourceTypeEnum sourceType) {
+    static SituationSourceTypeEnumeration convertSourceType(CharSequence sourceType) {
         if (sourceType == null) {
             return null;
         }
-        return SituationSourceTypeEnumeration.valueOf(sourceType.name());
+        return SituationSourceTypeEnumeration.valueOf(sourceType.toString());
     }
 
-    static SeverityEnumeration convert(SeverityEnum severity) {
+    static SeverityEnumeration convertSeverity(CharSequence severity) {
         if (severity == null) {
             return null;
         }
-        return SeverityEnumeration.valueOf(severity.name());
+        return SeverityEnumeration.valueOf(severity.toString());
     }
 
 
-    static WaterSubmodesOfTransportEnumeration convert(WaterSubmodesEnum waterSubmode) {
-        if (waterSubmode == WaterSubmodesEnum.UNKNOWN) {
+    static WaterSubmodesOfTransportEnumeration convertWaterSubmode(CharSequence waterSubmode) {
+        if (waterSubmode.equals(UNKNOWN)) {
             return WaterSubmodesOfTransportEnumeration.UNKNOWN;
         }
-        return WaterSubmodesOfTransportEnumeration.fromValue(waterSubmode.name());
+        return WaterSubmodesOfTransportEnumeration.valueOf(waterSubmode.toString());
     }
 
-    static TramSubmodesOfTransportEnumeration convert(TramSubmodesEnum tramSubmode) {
-        if (tramSubmode == TramSubmodesEnum.UNKNOWN) {
+    static TramSubmodesOfTransportEnumeration convertTramSubmode(CharSequence tramSubmode) {
+        if (tramSubmode.equals(UNKNOWN)) {
             return TramSubmodesOfTransportEnumeration.UNKNOWN;
         }
-        return TramSubmodesOfTransportEnumeration.fromValue(tramSubmode.name());
+        return TramSubmodesOfTransportEnumeration.valueOf(tramSubmode.toString());
     }
 
-    static RailSubmodesOfTransportEnumeration convert(RailSubmodesEnum railSubmode) {
-        if (railSubmode == RailSubmodesEnum.UNKNOWN) {
+    static RailSubmodesOfTransportEnumeration convertRailSubmode(CharSequence railSubmode) {
+        if (railSubmode.equals(UNKNOWN)) {
             return RailSubmodesOfTransportEnumeration.UNKNOWN;
         }
-        return RailSubmodesOfTransportEnumeration.fromValue(railSubmode.name());
+        return RailSubmodesOfTransportEnumeration.valueOf(railSubmode.toString());
     }
 
-    static MetroSubmodesOfTransportEnumeration convert(MetroSubmodesEnum metroSubmode) {
-        if (metroSubmode == MetroSubmodesEnum.UNKNOWN) {
+    static MetroSubmodesOfTransportEnumeration convertMetroSubmode(CharSequence metroSubmode) {
+        if (metroSubmode.equals(UNKNOWN)) {
             return MetroSubmodesOfTransportEnumeration.UNKNOWN;
         }
-        return MetroSubmodesOfTransportEnumeration.valueOf(metroSubmode.name());
+        return MetroSubmodesOfTransportEnumeration.valueOf(metroSubmode.toString());
     }
 
-    static CoachSubmodesOfTransportEnumeration convert(CoachSubmodesEnum coachSubmode) {
-        if (coachSubmode == CoachSubmodesEnum.UNKNOWN) {
+    static CoachSubmodesOfTransportEnumeration convertCoachSubmode(CharSequence coachSubmode) {
+        if (coachSubmode.equals(UNKNOWN)) {
             return CoachSubmodesOfTransportEnumeration.UNKNOWN;
         }
-        return CoachSubmodesOfTransportEnumeration.valueOf(coachSubmode.name());
+        return CoachSubmodesOfTransportEnumeration.valueOf(coachSubmode.toString());
     }
 
-    static BusSubmodesOfTransportEnumeration convert(BusSubmodesEnum busSubmode) {
-        if (busSubmode == BusSubmodesEnum.UNKNOWN) {
+    static BusSubmodesOfTransportEnumeration convertBusSubmode(CharSequence busSubmode) {
+        if (busSubmode.equals(UNKNOWN)) {
             return BusSubmodesOfTransportEnumeration.UNKNOWN;
         }
-        return BusSubmodesOfTransportEnumeration.valueOf(busSubmode.name());
+        return BusSubmodesOfTransportEnumeration.valueOf(busSubmode.toString());
     }
 
-    static AirSubmodesOfTransportEnumeration convert(AirSubmodesEnum airSubmode) {
-        if (airSubmode == AirSubmodesEnum.UNKNOWN) {
+    static AirSubmodesOfTransportEnumeration convertAirSubmode(CharSequence airSubmode) {
+        if (airSubmode.equals(UNKNOWN)) {
             return AirSubmodesOfTransportEnumeration.UNKNOWN;
         }
-        return AirSubmodesOfTransportEnumeration.valueOf(airSubmode.name());
+        return AirSubmodesOfTransportEnumeration.valueOf(airSubmode.toString());
     }
 
-    static VehicleModesOfTransportEnumeration convert(VehicleModeEnum vehicleMode) {
+    static VehicleModesOfTransportEnumeration convertVehicleMode(CharSequence vehicleMode) {
         if (vehicleMode == null) {
             return null;
         }
-        return VehicleModesOfTransportEnumeration.fromValue(vehicleMode.name());
+        return VehicleModesOfTransportEnumeration.valueOf(vehicleMode.toString());
     }
 
-    static WorkflowStatusEnumeration convert(WorkflowStatusEnum progress) {
+    static WorkflowStatusEnumeration convertProgress(CharSequence progress) {
         if (progress == null) {
             return null;
         }
-        return WorkflowStatusEnumeration.valueOf(progress.name());
+        return WorkflowStatusEnumeration.valueOf(progress.toString());
     }
 }

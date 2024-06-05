@@ -1,14 +1,10 @@
 package org.entur.avro.realtime.siri.converter.jaxb2avro;
 
-import org.entur.avro.realtime.siri.model.AlightingActivityEnum;
-import org.entur.avro.realtime.siri.model.BoardingActivityEnum;
-import org.entur.avro.realtime.siri.model.CallStatusEnum;
 import org.entur.avro.realtime.siri.model.EstimatedCallRecord;
 import org.entur.avro.realtime.siri.model.EstimatedJourneyVersionFrameRecord;
 import org.entur.avro.realtime.siri.model.EstimatedTimetableDeliveryRecord;
 import org.entur.avro.realtime.siri.model.EstimatedVehicleJourneyRecord;
 import org.entur.avro.realtime.siri.model.FramedVehicleJourneyRefRecord;
-import org.entur.avro.realtime.siri.model.OccupancyEnum;
 import org.entur.avro.realtime.siri.model.PassengerCapacityRecord;
 import org.entur.avro.realtime.siri.model.RecordedCallRecord;
 import org.entur.avro.realtime.siri.model.StopAssignmentRecord;
@@ -191,18 +187,18 @@ public class EstimatedTimetableDeliveryConverter extends Jaxb2AvroEnumConverter 
                 .build();
     }
 
-    private static BoardingActivityEnum convert(DepartureBoardingActivityEnumeration departureBoardingActivity) {
+    private static String convert(DepartureBoardingActivityEnumeration departureBoardingActivity) {
         if (departureBoardingActivity == null) {
             return null;
         }
-        return BoardingActivityEnum.valueOf(departureBoardingActivity.name());
+        return departureBoardingActivity.name();
     }
 
-    private static AlightingActivityEnum convert(ArrivalBoardingActivityEnumeration arrivalBoardingActivity) {
+    private static String convert(ArrivalBoardingActivityEnumeration arrivalBoardingActivity) {
         if (arrivalBoardingActivity == null) {
             return null;
         }
-        return AlightingActivityEnum.valueOf(arrivalBoardingActivity.name());
+        return arrivalBoardingActivity.name();
     }
 
     static EstimatedCallRecord convert(EstimatedCall call) {
@@ -217,7 +213,7 @@ public class EstimatedTimetableDeliveryConverter extends Jaxb2AvroEnumConverter 
                 .setRequestStop(call.isRequestStop())
                 .setExtraCall(call.isExtraCall())
                 .setPredictionInaccurate(call.isPredictionInaccurate())
-                .setOccupancy(call.getOccupancy() != null ? OccupancyEnum.valueOf(call.getOccupancy().name()):null)
+                .setOccupancy(call.getOccupancy() != null ? call.getOccupancy().name():null)
                 .setDestinationDisplays(convertNames(call.getDestinationDisplaies()))
 
                 .setAimedArrivalTime(convert(call.getAimedArrivalTime()))
@@ -327,11 +323,11 @@ public class EstimatedTimetableDeliveryConverter extends Jaxb2AvroEnumConverter 
         return Collections.emptyList();
     }
 
-    private static CallStatusEnum convert(CallStatusEnumeration arrivalStatus) {
+    private static String convert(CallStatusEnumeration arrivalStatus) {
         if (arrivalStatus == null) {
             return null;
         }
-        return CallStatusEnum.valueOf(arrivalStatus.name());
+        return arrivalStatus.name();
     }
 
 }

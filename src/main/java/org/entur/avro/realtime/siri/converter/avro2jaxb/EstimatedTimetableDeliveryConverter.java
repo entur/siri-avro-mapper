@@ -8,7 +8,6 @@ import org.entur.avro.realtime.siri.model.FramedVehicleJourneyRefRecord;
 import org.entur.avro.realtime.siri.model.PassengerCapacityRecord;
 import org.entur.avro.realtime.siri.model.RecordedCallRecord;
 import org.entur.avro.realtime.siri.model.StopAssignmentRecord;
-import org.entur.avro.realtime.siri.model.VehicleModeEnum;
 import org.entur.avro.realtime.siri.model.VehicleOccupancyRecord;
 import uk.org.siri.siri21.ArrivalBoardingActivityEnumeration;
 import uk.org.siri.siri21.BlockRefStructure;
@@ -228,7 +227,7 @@ public class EstimatedTimetableDeliveryConverter extends Avro2JaxbEnumConverter 
             mapped.setDataSource(estimatedVehicleJourney.getDataSource().toString());
         }
         if (estimatedVehicleJourney.getOccupancy() != null) {
-            mapped.setOccupancy(convert(estimatedVehicleJourney.getOccupancy()));
+            mapped.setOccupancy(convertOccupancy(estimatedVehicleJourney.getOccupancy()));
         }
         if (estimatedVehicleJourney.getBlockRef() != null) {
             mapped.setBlockRef(
@@ -296,10 +295,10 @@ public class EstimatedTimetableDeliveryConverter extends Avro2JaxbEnumConverter 
         return estimatedCalls;
     }
 
-    private static Collection<VehicleModesEnumeration> convertVehicleMode(List<VehicleModeEnum> vehicleModes) {
+    private static Collection<VehicleModesEnumeration> convertVehicleMode(List<CharSequence> vehicleModes) {
         List<VehicleModesEnumeration> modes = new ArrayList<>();
-        for (VehicleModeEnum vehicleMode : vehicleModes) {
-            modes.add(VehicleModesEnumeration.valueOf(vehicleMode.name()));
+        for (CharSequence vehicleMode : vehicleModes) {
+            modes.add(VehicleModesEnumeration.valueOf(vehicleMode.toString()));
         }
         return modes;
     }
@@ -341,10 +340,10 @@ public class EstimatedTimetableDeliveryConverter extends Avro2JaxbEnumConverter 
             mapped.setActualArrivalTime(convertDate(call.getActualArrivalTime()));
         }
         if (call.getArrivalStatus() != null) {
-            mapped.setArrivalStatus(CallStatusEnumeration.valueOf(call.getArrivalStatus().name()));
+            mapped.setArrivalStatus(CallStatusEnumeration.valueOf(call.getArrivalStatus().toString()));
         }
         if (call.getArrivalBoardingActivity() != null) {
-            mapped.setArrivalBoardingActivity(ArrivalBoardingActivityEnumeration.valueOf(call.getArrivalBoardingActivity().name()));
+            mapped.setArrivalBoardingActivity(ArrivalBoardingActivityEnumeration.valueOf(call.getArrivalBoardingActivity().toString()));
         }
         if (!isNullOrEmpty(call.getArrivalStopAssignments())) {
             mapped.getArrivalStopAssignments().addAll(convertStopAssignments(call.getArrivalStopAssignments()));
@@ -366,11 +365,11 @@ public class EstimatedTimetableDeliveryConverter extends Avro2JaxbEnumConverter 
             mapped.setDeparturePlatformName(setValue(NaturalLanguageStringStructure.class, call.getDeparturePlatformName()));
         }
         if (call.getDepartureStatus() != null) {
-            mapped.setDepartureStatus(CallStatusEnumeration.valueOf(call.getDepartureStatus().name()));
+            mapped.setDepartureStatus(CallStatusEnumeration.valueOf(call.getDepartureStatus().toString()));
         }
         if (call.getDepartureBoardingActivity() != null) {
             mapped.setDepartureBoardingActivity(
-                    DepartureBoardingActivityEnumeration.valueOf(call.getDepartureBoardingActivity().name())
+                    DepartureBoardingActivityEnumeration.valueOf(call.getDepartureBoardingActivity().toString())
             );
         }
         if (!isNullOrEmpty(call.getDepartureStopAssignments())) {
@@ -440,7 +439,7 @@ public class EstimatedTimetableDeliveryConverter extends Avro2JaxbEnumConverter 
         mapped.setTrainComponentRef(setValue(TrainComponentRef.class, occupancy.getTrainComponentRef()));
         mapped.setEntranceToVehicleRef(setValue(EntranceToVehicleRef.class, occupancy.getEntranceToVehicleRef()));
         mapped.setPassengerCategory(setValue(NaturalLanguageStringStructure.class, occupancy.getPassengerCategory()));
-        mapped.setOccupancyLevel(convert(occupancy.getOccupancyLevel()));
+        mapped.setOccupancyLevel(convertOccupancy(occupancy.getOccupancyLevel()));
         mapped.setOccupancyPercentage(convert(occupancy.getOccupancyPercentage()));
         mapped.setAlightingCount(convert(occupancy.getAlightingCount()));
         mapped.setBoardingCount(convert(occupancy.getBoardingCount()));
@@ -493,11 +492,13 @@ public class EstimatedTimetableDeliveryConverter extends Avro2JaxbEnumConverter 
             mapped.setExpectedArrivalTime(convertDate(call.getExpectedArrivalTime()));
         }
         if (call.getArrivalStatus() != null) {
-            mapped.setArrivalStatus(CallStatusEnumeration.valueOf(call.getArrivalStatus().name()));
+            mapped.setArrivalStatus(
+                    CallStatusEnumeration.valueOf(call.getArrivalStatus().toString())
+            );
         }
         if (call.getArrivalBoardingActivity() != null) {
             mapped.setArrivalBoardingActivity(
-                    ArrivalBoardingActivityEnumeration.valueOf(call.getArrivalBoardingActivity().name())
+                    ArrivalBoardingActivityEnumeration.valueOf(call.getArrivalBoardingActivity().toString())
             );
         }
         if (!isNullOrEmpty(call.getArrivalStopAssignments())) {
@@ -516,11 +517,11 @@ public class EstimatedTimetableDeliveryConverter extends Avro2JaxbEnumConverter 
             mapped.setExpectedDepartureTime(convertDate(call.getExpectedDepartureTime()));
         }
         if (call.getDepartureStatus() != null) {
-            mapped.setDepartureStatus(CallStatusEnumeration.valueOf(call.getDepartureStatus().name()));
+            mapped.setDepartureStatus(CallStatusEnumeration.valueOf(call.getDepartureStatus().toString()));
         }
         if (call.getDepartureBoardingActivity() != null) {
             mapped.setDepartureBoardingActivity(
-                    DepartureBoardingActivityEnumeration.valueOf(call.getDepartureBoardingActivity().name())
+                    DepartureBoardingActivityEnumeration.valueOf(call.getDepartureBoardingActivity().toString())
             );
         }
         if (!isNullOrEmpty(call.getDepartureStopAssignments())) {

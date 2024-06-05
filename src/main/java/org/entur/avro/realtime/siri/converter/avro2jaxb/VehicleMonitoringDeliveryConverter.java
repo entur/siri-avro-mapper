@@ -5,7 +5,6 @@ import org.entur.avro.realtime.siri.model.LocationRecord;
 import org.entur.avro.realtime.siri.model.MonitoredVehicleJourneyRecord;
 import org.entur.avro.realtime.siri.model.ProgressBetweenStopsRecord;
 import org.entur.avro.realtime.siri.model.VehicleActivityRecord;
-import org.entur.avro.realtime.siri.model.VehicleModeEnum;
 import org.entur.avro.realtime.siri.model.VehicleMonitoringDeliveryRecord;
 import uk.org.siri.siri21.DestinationRef;
 import uk.org.siri.siri21.DirectionRefStructure;
@@ -142,14 +141,14 @@ public class VehicleMonitoringDeliveryConverter extends Avro2JaxbEnumConverter {
             vehicleJourney.setVelocity(BigInteger.valueOf(rec.getVelocity()));
         }
         if (rec.getOccupancy() != null) {
-            vehicleJourney.setOccupancy(convert(rec.getOccupancy()));
+            vehicleJourney.setOccupancy(convertOccupancy(rec.getOccupancy()));
         }
         if (rec.getDelay() != null) {
             vehicleJourney.setDelay(convertDuration(rec.getDelay()));
         }
         vehicleJourney.setInCongestion(rec.getInCongestion());
         if (rec.getVehicleStatus() != null) {
-            vehicleJourney.setVehicleStatus(convert(rec.getVehicleStatus()));
+            vehicleJourney.setVehicleStatus(convertVehicleStatus(rec.getVehicleStatus()));
         }
         if (rec.getVehicleJourneyRef() != null) {
             vehicleJourney.setVehicleJourneyRef(setValue(VehicleJourneyRef.class, rec.getVehicleJourneyRef()));
@@ -203,13 +202,13 @@ public class VehicleMonitoringDeliveryConverter extends Avro2JaxbEnumConverter {
         return loc;
     }
 
-    private static List<VehicleModesEnumeration> resolveVehicleModes(List<VehicleModeEnum> vehicleModes) {
+    private static List<VehicleModesEnumeration> resolveVehicleModes(List<CharSequence> vehicleModes) {
         if (vehicleModes == null) {
             return Collections.emptyList();
         }
         List<VehicleModesEnumeration> modes = new ArrayList<>();
-        for (VehicleModeEnum vehicleMode : vehicleModes) {
-            modes.add(VehicleModesEnumeration.valueOf(vehicleMode.name()));
+        for (CharSequence vehicleMode : vehicleModes) {
+            modes.add(VehicleModesEnumeration.valueOf(vehicleMode.toString()));
         }
         return modes;
     }

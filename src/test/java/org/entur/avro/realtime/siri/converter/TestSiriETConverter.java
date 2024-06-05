@@ -1,5 +1,6 @@
 package org.entur.avro.realtime.siri.converter;
 
+import jakarta.xml.bind.JAXBException;
 import org.entur.avro.realtime.siri.model.SiriRecord;
 import org.entur.siri21.util.SiriXml;
 import org.junit.jupiter.api.BeforeAll;
@@ -7,7 +8,6 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import uk.org.siri.siri21.Siri;
 
-import jakarta.xml.bind.JAXBException;
 import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 

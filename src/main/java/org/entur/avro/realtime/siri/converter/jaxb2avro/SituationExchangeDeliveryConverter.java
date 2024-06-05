@@ -5,7 +5,6 @@ import org.entur.avro.realtime.siri.model.AccessibilityEnum;
 import org.entur.avro.realtime.siri.model.AccessibilityFeatureEnum;
 import org.entur.avro.realtime.siri.model.AccessibilityLimitationRecord;
 import org.entur.avro.realtime.siri.model.AdviceRecord;
-import org.entur.avro.realtime.siri.model.AdviceTypeEnum;
 import org.entur.avro.realtime.siri.model.AffectedComponentsRecord;
 import org.entur.avro.realtime.siri.model.AffectedLineRecord;
 import org.entur.avro.realtime.siri.model.AffectedNetworkRecord;
@@ -250,18 +249,18 @@ public class SituationExchangeDeliveryConverter extends Jaxb2AvroEnumConverter {
                 .build();
     }
 
-    private static StopPlaceComponentTypeEnum convert(StopPlaceComponentTypeEnumeration componentType) {
+    private static String convert(StopPlaceComponentTypeEnumeration componentType) {
         if (componentType == null) {
             return null;
         }
-        return StopPlaceComponentTypeEnum.valueOf(componentType.name());
+        return StopPlaceComponentTypeEnum.valueOf(componentType.name()).name();
     }
 
-    private static AccessibilityFeatureEnum convert(AccessibilityFeatureEnumeration accessFeatureType) {
+    private static String convert(AccessibilityFeatureEnumeration accessFeatureType) {
         if (accessFeatureType == null) {
             return null;
         }
-        return AccessibilityFeatureEnum.valueOf(accessFeatureType.name());
+        return AccessibilityFeatureEnum.valueOf(accessFeatureType.name()).name();
     }
 
     private static AccessibilityAssessmentRecord convert(AccessibilityAssessmentStructure accessibilityAssessment) {
@@ -293,11 +292,11 @@ public class SituationExchangeDeliveryConverter extends Jaxb2AvroEnumConverter {
         return records;
     }
 
-    private static AccessibilityEnum convert(AccessibilityStructure accessibilityStructure) {
+    private static String convert(AccessibilityStructure accessibilityStructure) {
         if (accessibilityStructure == null) {
             return null;
         }
-        return AccessibilityEnum.valueOf(accessibilityStructure.getValue().name());
+        return AccessibilityEnum.valueOf(accessibilityStructure.getValue().name()).name();
     }
 
     private static List<AffectedNetworkRecord> convert(AffectsScopeStructure.Networks networks) {
@@ -519,7 +518,9 @@ public class SituationExchangeDeliveryConverter extends Jaxb2AvroEnumConverter {
             return null;
         }
         return SourceRecord.newBuilder()
-                .setSourceType(SourceTypeEnum.valueOf(source.getSourceType().name()))
+                .setSourceType(
+                        SourceTypeEnum.valueOf(source.getSourceType().name()).name()
+                )
                 .build();
     }
 

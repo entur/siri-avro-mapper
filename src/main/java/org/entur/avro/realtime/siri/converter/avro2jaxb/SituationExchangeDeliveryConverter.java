@@ -1,7 +1,6 @@
 package org.entur.avro.realtime.siri.converter.avro2jaxb;
 
 import org.entur.avro.realtime.siri.model.AccessibilityAssessmentRecord;
-import org.entur.avro.realtime.siri.model.AccessibilityFeatureEnum;
 import org.entur.avro.realtime.siri.model.AccessibilityLimitationRecord;
 import org.entur.avro.realtime.siri.model.AdviceRecord;
 import org.entur.avro.realtime.siri.model.AffectedComponentsRecord;
@@ -19,10 +18,8 @@ import org.entur.avro.realtime.siri.model.ConsequenceRecord;
 import org.entur.avro.realtime.siri.model.IndirectSectionRefRecord;
 import org.entur.avro.realtime.siri.model.InfoLinkRecord;
 import org.entur.avro.realtime.siri.model.PtSituationElementRecord;
-import org.entur.avro.realtime.siri.model.ReportTypeEnum;
 import org.entur.avro.realtime.siri.model.SituationExchangeDeliveryRecord;
 import org.entur.avro.realtime.siri.model.SourceRecord;
-import org.entur.avro.realtime.siri.model.StopPlaceComponentTypeEnum;
 import org.entur.avro.realtime.siri.model.StopPointsRecord;
 import org.entur.avro.realtime.siri.model.ValidityPeriodRecord;
 import uk.org.acbs.siri21.AccessibilityAssessmentStructure;
@@ -143,7 +140,7 @@ public class SituationExchangeDeliveryConverter extends Avro2JaxbEnumConverter {
             element.setSource(convert(situation.getSource()));
         }
         if (situation.getProgress() != null) {
-            element.setProgress(convert(situation.getProgress()));
+            element.setProgress(convertProgress(situation.getProgress()));
         }
         if (situation.getVersionedAtTime() != null) {
             element.setVersionedAtTime(convertDate(situation.getVersionedAtTime()));
@@ -158,13 +155,13 @@ public class SituationExchangeDeliveryConverter extends Avro2JaxbEnumConverter {
             element.setUndefinedReason(situation.getUndefinedReason().toString());
         }
         if (situation.getSeverity() != null) {
-            element.setSeverity(convert(situation.getSeverity()));
+            element.setSeverity(convertSeverity(situation.getSeverity()));
         }
         if (situation.getPriority() != null) {
             element.setPriority(BigInteger.valueOf(situation.getPriority()));
         }
         if (situation.getReportType() != null) {
-            element.setReportType(convert(situation.getReportType()));
+            element.setReportType(convertReportType(situation.getReportType()));
         }
         if (situation.getKeywords() != null) {
             element.getKeywords().addAll(convertStringList(situation.getKeywords()));
@@ -221,7 +218,7 @@ public class SituationExchangeDeliveryConverter extends Avro2JaxbEnumConverter {
             return null;
         }
         PtAdviceStructure adviceStructure = new PtAdviceStructure();
-        adviceStructure.setAdviceType(convert(advice.getAdviceType()));
+        adviceStructure.setAdviceType(convertAdviceType(advice.getAdviceType()));
         return adviceStructure;
     }
 
@@ -268,28 +265,28 @@ public class SituationExchangeDeliveryConverter extends Avro2JaxbEnumConverter {
             result.setNetworkRef(setValue(NetworkRefStructure.class, network.getNetworkRef()));
         }
         if (network.getVehicleMode() != null) {
-            result.setVehicleMode(convert(network.getVehicleMode()));
+            result.setVehicleMode(convertVehicleMode(network.getVehicleMode()));
         }
         if (network.getAirSubmode() != null) {
-            result.setAirSubmode(convert(network.getAirSubmode()));
+            result.setAirSubmode(convertAirSubmode(network.getAirSubmode()));
         }
         if (network.getBusSubmode() != null) {
-            result.setBusSubmode(convert(network.getBusSubmode()));
+            result.setBusSubmode(convertBusSubmode(network.getBusSubmode()));
         }
         if (network.getCoachSubmode() != null) {
-            result.setCoachSubmode(convert(network.getCoachSubmode()));
+            result.setCoachSubmode(convertCoachSubmode(network.getCoachSubmode()));
         }
         if (network.getMetroSubmode() != null) {
-            result.setMetroSubmode(convert(network.getMetroSubmode()));
+            result.setMetroSubmode(convertMetroSubmode(network.getMetroSubmode()));
         }
         if (network.getRailSubmode() != null) {
-            result.setRailSubmode(convert(network.getRailSubmode()));
+            result.setRailSubmode(convertRailSubmode(network.getRailSubmode()));
         }
         if (network.getTramSubmode() != null) {
-            result.setTramSubmode(convert(network.getTramSubmode()));
+            result.setTramSubmode(convertTramSubmode(network.getTramSubmode()));
         }
         if (network.getWaterSubmode() != null) {
-            result.setWaterSubmode(convert(network.getWaterSubmode()));
+            result.setWaterSubmode(convertWaterSubmode(network.getWaterSubmode()));
         }
         if (!isNullOrEmpty(network.getAffectedLines())) {
             result.getAffectedLines()
@@ -370,20 +367,20 @@ public class SituationExchangeDeliveryConverter extends Avro2JaxbEnumConverter {
             componentStructure.setComponentRef(setValue(StopPlaceComponentRefStructure.class, component.getComponentRef()));
         }
         if (component.getComponentType() != null) {
-            componentStructure.setComponentType(convert(component.getComponentType()));
+            componentStructure.setComponentType(convertStopPlaceComponentType(component.getComponentType()));
         }
         if (component.getAccessFeatureType() != null) {
-            componentStructure.setAccessFeatureType(convert(component.getAccessFeatureType()));
+            componentStructure.setAccessFeatureType(convertAccessibilityFeature(component.getAccessFeatureType()));
         }
         return componentStructure;
     }
 
-    private static AccessibilityFeatureEnumeration convert(AccessibilityFeatureEnum accessFeatureType) {
-        return AccessibilityFeatureEnumeration.valueOf(accessFeatureType.name());
+    private static AccessibilityFeatureEnumeration convertAccessibilityFeature(CharSequence accessFeatureType) {
+        return AccessibilityFeatureEnumeration.valueOf(accessFeatureType.toString());
     }
 
-    private static StopPlaceComponentTypeEnumeration convert(StopPlaceComponentTypeEnum componentType) {
-        return StopPlaceComponentTypeEnumeration.valueOf(componentType.name());
+    private static StopPlaceComponentTypeEnumeration convertStopPlaceComponentType(CharSequence componentType) {
+        return StopPlaceComponentTypeEnumeration.valueOf(componentType.toString());
     }
 
     private static AccessibilityAssessmentStructure convert(AccessibilityAssessmentRecord record) {
@@ -408,16 +405,16 @@ public class SituationExchangeDeliveryConverter extends Avro2JaxbEnumConverter {
     private static AccessibilityLimitationStructure convert(AccessibilityLimitationRecord limitation) {
         AccessibilityLimitationStructure result = new AccessibilityLimitationStructure();
         if (limitation.getWheelchairAccess() != null) {
-            result.setWheelchairAccess(setValue(AccessibilityStructure.class, limitation.getWheelchairAccess().name()));
+            result.setWheelchairAccess(setValue(AccessibilityStructure.class, limitation.getWheelchairAccess().toString()));
         }
         if (limitation.getStepFreeAccess() != null) {
-            result.setStepFreeAccess(setValue(AccessibilityStructure.class, limitation.getStepFreeAccess().name()));
+            result.setStepFreeAccess(setValue(AccessibilityStructure.class, limitation.getStepFreeAccess().toString()));
         }
         if (limitation.getEscalatorFreeAccess() != null) {
-            result.setEscalatorFreeAccess(setValue(AccessibilityStructure.class, limitation.getEscalatorFreeAccess().name()));
+            result.setEscalatorFreeAccess(setValue(AccessibilityStructure.class, limitation.getEscalatorFreeAccess().toString()));
         }
         if (limitation.getLiftFreeAccess() != null) {
-            result.setLiftFreeAccess(setValue(AccessibilityStructure.class, limitation.getLiftFreeAccess().name()));
+            result.setLiftFreeAccess(setValue(AccessibilityStructure.class, limitation.getLiftFreeAccess().toString()));
         }
         return result;
     }
@@ -628,11 +625,11 @@ public class SituationExchangeDeliveryConverter extends Avro2JaxbEnumConverter {
         return result;
     }
 
-    private static ReportTypeEnumeration convert(ReportTypeEnum reportType) {
+    private static ReportTypeEnumeration convertReportType(CharSequence reportType) {
         if (reportType == null) {
             return null;
         }
-        return ReportTypeEnumeration.valueOf(reportType.name());
+        return ReportTypeEnumeration.valueOf(reportType.toString());
     }
 
     private static List<HalfOpenTimestampOutputRangeStructure> convertValidityPeriods(List<ValidityPeriodRecord> validityPeriods) {
@@ -660,7 +657,7 @@ public class SituationExchangeDeliveryConverter extends Avro2JaxbEnumConverter {
         }
         SituationSourceStructure result = new SituationSourceStructure();
         if (source.getSourceType() != null) {
-            result.setSourceType(convert(source.getSourceType()));
+            result.setSourceType(convertSourceType(source.getSourceType().toString()));
         }
         return result;
     }
