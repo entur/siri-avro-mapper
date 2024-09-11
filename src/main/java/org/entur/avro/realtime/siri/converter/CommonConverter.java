@@ -98,6 +98,9 @@ public class CommonConverter {
      * @return
      */
     protected static <T> T setValue(Class<T> clazz, CharSequence value) {
+        if (value == null) {
+            return null;
+        }
         try {
 
             T instance = clazz.getDeclaredConstructor().newInstance();
@@ -126,12 +129,15 @@ public class CommonConverter {
         try {
             List<T> result = new ArrayList<>();
             for (Object value : values) {
-                T instance = clazz.getDeclaredConstructor().newInstance();
 
-                Method method = clazz.getMethod("setValue", String.class);
+                if (value != null) {
+                    T instance = clazz.getDeclaredConstructor().newInstance();
 
-                method.invoke(instance, value.toString());
-                result.add(instance);
+                    Method method = clazz.getMethod("setValue", String.class);
+                    method.invoke(instance, value.toString());
+
+                    result.add(instance);
+                }
             }
 
 
