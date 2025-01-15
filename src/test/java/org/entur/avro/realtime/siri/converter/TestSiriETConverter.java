@@ -37,7 +37,7 @@ public class TestSiriETConverter extends Helper {
     }
 
     @Test
-    public void testNativeAvroSerializtion() throws XMLStreamException, JAXBException, IOException {
+    public void testNativeAvroSerialization() throws XMLStreamException, JAXBException, IOException {
         Siri s = SiriXml.parseXml(xml);
         SiriRecord siriRecord = jaxb2Avro(s);
 
