@@ -65,7 +65,6 @@
           </VehicleLocation>
           <Delay>PT18S</Delay>
           <VehicleStatus>inProgress</VehicleStatus>
-          <VehicleJourneyRef>ENT:DatedServiceJourney:1234</VehicleJourneyRef>
           <VehicleRef>1234</VehicleRef>
           <MonitoredCall>
             <StopPointRef>ENT:Quay:123</StopPointRef>
