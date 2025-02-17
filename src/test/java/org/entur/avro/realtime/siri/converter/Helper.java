@@ -9,14 +9,16 @@ import uk.org.siri.siri21.VehicleMonitoringDeliveryStructure;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.util.TimeZone;
 
 import static org.entur.avro.realtime.siri.converter.CommonConverter.isNullOrEmpty;
 
 public class Helper {
 
     static {
-        CommonConverter.forceTimeZone = ZoneId.of("Europe/Oslo");
+        ZoneId timeZone = ZoneId.of("Europe/Oslo");
+        CommonConverter.forceTimeZone = timeZone;
+        TimeZone.setDefault(TimeZone.getTimeZone(timeZone));
     }
 
     public static String init(String path) throws IOException {
