@@ -6,7 +6,7 @@
 
     <groupId>org.entur</groupId>
     <artifactId>siri-avro-mapper</artifactId>
-    <version>4.0.2</version>
+    <version>4.0.3-SNAPSHOT</version>
 
     <name>siri-avro-mapper</name>
     <description>Avro-mapping from/to objects from the public SIRI XSDs</description>
