@@ -43,7 +43,7 @@
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <avro.version>1.11.3</avro.version>
+        <avro.version>1.11.4</avro.version>
         <maven-javadoc-plugin.version>3.11.2</maven-javadoc-plugin.version>
         <jreleaser-maven-plugin.version>1.18.0</jreleaser-maven-plugin.version>
     </properties>
